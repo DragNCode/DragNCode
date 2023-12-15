@@ -7,7 +7,7 @@ export const Canvas: React.FC = () => {
 
     return (
         
-        <Box style={{backgroundImage : `url('../../static/images/bg.jpg')`, overflowY:'auto'}} height={735} width={1080}>
+        <Box style={{backgroundImage : `url('../../static/images/bg.jpg')`, overflowY:'auto'}} height={'100%'} width={'100%'}>
            
         </Box>
     )

@@ -58,11 +58,7 @@ const Signup: React.FC = () => {
       </form>
 
       {error && <span className="text-red-600">{error.msg}</span>}
-<<<<<<< HEAD
       <span>already have an account? </span>
-=======
-      <span>Dont have an account? </span> <SimpleButton variant="link" size="md" text="Login!" colorScheme="teal" handleClick={() => {router.push('/login')}} />
->>>>>>> 76903f2815901f24a4543c4f8779918b81bb25a7
     </div>
   );
 };
