@@ -1,7 +1,7 @@
 import { Button, Checkbox } from '@chakra-ui/react';
 
 interface SimpleButtonProps {
-    colorScheme: 'blue' | 'teal' | 'gray' | 'red' | 'orange' | 'yellow' | 'cyan' | 'purple' ,
+    colorScheme: 'blue' | 'teal' | 'gray' | 'red' | 'orange' | 'yellow' | 'cyan' | 'purple'|'pink' ,
     variant?: 'solid' | 'outline' | 'link' | 'ghost',
     size: 'xs' | 'sm' | 'md' | 'lg',
     text: string,
