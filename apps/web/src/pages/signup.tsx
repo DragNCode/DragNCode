@@ -18,7 +18,7 @@ const Signup: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: value });
   };
   const handleFormSubmit = () => {
-    
+
   };
 
   return (
@@ -56,7 +56,7 @@ const Signup: React.FC = () => {
       </form>
 
       {error && <span className="text-red-600">{error.msg}</span>}
-      <span>dont have an account? </span>
+      <span>already have an account? </span>
     </div>
   );
 };
