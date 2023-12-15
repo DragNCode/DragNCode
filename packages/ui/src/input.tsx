@@ -33,7 +33,7 @@ export const InputWithAddon: React.FC<InputWithAddonProps> = (props) => {
     return (
         <InputGroup size={size}>
             { leftAddon ? <InputLeftAddon children={leftAddon} /> : '' }
-            <Input size={size} variant={variant && 'outline'} placeholder={placeholder} />
+            <Input size={size} variant={variant && 'outline'} placeholder={placeholder} onChange={handleChange} />
             { rightAddon ? <InputRightAddon children={rightAddon} /> : '' }
         </InputGroup>
     )

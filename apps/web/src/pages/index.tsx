@@ -1,13 +1,13 @@
-import { InputWithAddon } from "@repo/ui/input";
+ 
 
-export default function Home() {
+const Home: React.FC = () => {
 
   return (
-    <>
-      <InputWithAddon
-        placeholder="hi there"
-        size="md"
-      />
-    </>
+    <div>
+      you are at /
+    </div>
   )
+
 }
+
+export default Home;

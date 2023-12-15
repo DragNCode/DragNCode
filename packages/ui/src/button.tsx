@@ -1,7 +1,7 @@
 import { Button, Checkbox } from '@chakra-ui/react';
 
 interface SimpleButtonProps {
-    colorScheme: 'blue' | 'teal' | 'gray' | 'red' | 'orange' | 'yellow' | 'cyan' | 'purple',
+    colorScheme: 'blue' | 'teal' | 'gray' | 'red' | 'orange' | 'yellow' | 'cyan' | 'purple' ,
     variant?: 'solid' | 'outline' | 'link' | 'ghost',
     size: 'xs' | 'sm' | 'md' | 'lg',
     text: string,
@@ -11,7 +11,7 @@ interface SimpleButtonProps {
 export const SimpleButton: React.FC<SimpleButtonProps> = (props) => {
     const { colorScheme, variant, size, text, handleClick } = props
     return (
-        <Button colorScheme={colorScheme} size={size} variant={variant && 'solid'} onClick={handleClick} >{text}</Button>
+        <Button colorScheme={colorScheme} size={size} variant={variant} onClick={handleClick} >{text}</Button>
     )
 }
 
