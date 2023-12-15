@@ -2,16 +2,17 @@ import { SimpleInput, InputWithAddon } from "@repo/ui/input";
 import { SimpleButton } from "@repo/ui/button";
 import { useState } from "react";
 import axios from "axios";
-import Link from "next/link";
-import { log } from "console";
-
+import {  useRouter } from "next/router";
+ 
 const Login: React.FC = () => {
+
+  const router = useRouter()
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({ msg: "" });
   const [loading, setLoading] = useState(false);
-  
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const value = e.target.value;
     setFormData({...formData,  [e.target.name]:value })
   };
@@ -46,7 +47,7 @@ const Login: React.FC = () => {
           type="email"
           name="email"
           value={formData.email}
-          placeholder="enter email"
+          placeholder="Enter email"
           className="p-3 border border-blue-700 rounded-md"
           onChange={handleChange}
         />
@@ -54,7 +55,7 @@ const Login: React.FC = () => {
           type="password"
           name="password"
           value={formData.password}
-          placeholder="enter password"
+          placeholder="Enter password"
           className="p-3 border border-blue-700 rounded-md"
           onChange={handleChange}
         />
@@ -65,7 +66,7 @@ const Login: React.FC = () => {
       </form>
 
       {error && <span className="text-red-600 ">{error.msg}</span>}
-      <div>dont have an account? </div>
+      <div>Dont have an account? </div> <SimpleButton variant="link" size="md" text="Signup!" colorScheme="teal" handleClick={() => {router.push('/signup')}} />
     </div>
   );
 };
