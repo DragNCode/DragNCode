@@ -1,15 +1,13 @@
-import { SimpleButton, CheckBox } from "@repo/ui/button";
+import { InputWithAddon } from "@repo/ui/input";
 
 export default function Home() {
 
-  const click = () => {
-    console.log('clicked');
-  }
-
   return (
     <>
-      <SimpleButton colorScheme="teal" variant="solid" size="md" text="Click Me" handleClick={click} />
-      <CheckBox colorScheme="blue" size="md" text="check me" handleClick={click} />
+      <InputWithAddon
+        placeholder="hi there"
+        size="md"
+      />
     </>
   )
 }
