@@ -1,10 +1,12 @@
 import { SimpleInput, InputWithAddon } from "@repo/ui/input";
 import { SimpleButton } from "@repo/ui/button";
 import { useState } from "react";
-
-import Link from "next/link";
+import {  useRouter } from "next/router";
 
 const Signup: React.FC = () => {
+
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -29,7 +31,7 @@ const Signup: React.FC = () => {
           type="text"
           name="username"
           value={formData.username}
-          placeholder="enter username"
+          placeholder="Enter username"
           className="p-3 border border-blue-700 rounded-md"
           onChange={handleChange}
         />
@@ -37,7 +39,7 @@ const Signup: React.FC = () => {
           type="email"
           name="email"
           value={formData.email}
-          placeholder="enter email"
+          placeholder="Enter email"
           className="p-3 border border-blue-700 rounded-md"
           onChange={handleChange}
         />
@@ -45,7 +47,7 @@ const Signup: React.FC = () => {
           type="password"
           name="password"
           value={formData.password}
-          placeholder="enter password"
+          placeholder="Enter password"
           className="p-3 border border-blue-700 rounded-md"
           onChange={handleChange}
         />
@@ -56,7 +58,7 @@ const Signup: React.FC = () => {
       </form>
 
       {error && <span className="text-red-600">{error.msg}</span>}
-      <span>dont have an account? </span>
+      <span>Dont have an account? </span> <SimpleButton variant="link" size="md" text="Login!" colorScheme="teal" handleClick={() => {router.push('/login')}} />
     </div>
   );
 };
