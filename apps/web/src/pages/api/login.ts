@@ -5,10 +5,12 @@ type Data = {
   msg: string;
 };
 
+
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+
   const { email, password } = req.body;
 
   try {
