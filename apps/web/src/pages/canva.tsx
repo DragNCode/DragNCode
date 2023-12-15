@@ -1,7 +1,9 @@
 import { Item } from "@/components/Item";
 import { Navbar } from "@/components/Navbar";
+import { Properties } from "@/components/Properties";
 import { Sidebar } from "@/components/Sidebar";
 import { Box } from "@chakra-ui/react";
+import { Canvas } from "@/components/Canvas";
 
 const Canva: React.FC = () => {
     return (
@@ -10,7 +12,12 @@ const Canva: React.FC = () => {
             <Box className="flex" >
                 <Sidebar />
                 <Item />
-                <Box p={4}> {/* Your main content goes here */}</Box>
+                <Box minW={'60vw'}>
+                    <Canvas />
+                </Box>
+                <Box minW={'10vw'}>
+                    <Properties />
+                </Box>
             </Box>
         </>
     )

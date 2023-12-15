@@ -3,3 +3,9 @@ export const ItemStateTyes = {
     Element: 'Element',
     Upload: 'Upload'
 }
+
+export const Elements = {
+    Button: 'Button',
+    Input: 'Input',
+    AddonInput: 'AddonInput'
+}

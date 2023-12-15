@@ -1,17 +1,21 @@
 import { ItemState } from "@/atoms/Sidebar/ItemState";
 import { ItemStateTyes } from "@/utils/Objects";
 import { Box } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
+import { Element } from "./Element";
 
 export const Item = () => {
 
-    const [ item, setItem ] = useRecoilState(ItemState);
+    const item = useRecoilValue(ItemState);
 
     return (
         <Box
             minW={80}
+            maxW={80}
+            maxH={'93vh'}
             bg={'#2C3539'}
             color={'white'}
+            overflowY={'auto'}
         >
             {
                 item === ItemStateTyes.Element ? 
@@ -25,15 +29,6 @@ export const Item = () => {
         </Box>
     )
 }
-
-const Element = () => {
-    return (
-        <div>
-            Element
-        </div>
-    )
-}
-
 
 const Text = () => {
     return (

@@ -22,7 +22,7 @@ export const SimpleInput: React.FC<SimpleInputProps> = (props) => {
     const { variant, size, placeholder, handleChange } = props;
 
     return (
-        <Input variant={variant && 'outline'} size={size} placeholder={placeholder} onChange={handleChange} />
+        <Input variant={variant?.length === 0 ? 'outline' : variant} size={size} placeholder={placeholder} onChange={handleChange} mt={4} />
     )
 }
 
@@ -31,10 +31,10 @@ export const InputWithAddon: React.FC<InputWithAddonProps> = (props) => {
     const { variant, size, placeholder, handleChange, leftAddon, rightAddon } = props;
 
     return (
-        <InputGroup size={size}>
-            { leftAddon ? <InputLeftAddon children={leftAddon} /> : '' }
+        <InputGroup size={size} mt={4} >
+            { leftAddon ? <InputLeftAddon color={'black'} children={leftAddon} /> : '' }
             <Input size={size} variant={variant && 'outline'} placeholder={placeholder} onChange={handleChange} />
-            { rightAddon ? <InputRightAddon children={rightAddon} /> : '' }
+            { rightAddon ? <InputRightAddon color={'black'} children={rightAddon} /> : '' }
         </InputGroup>
     )
 
