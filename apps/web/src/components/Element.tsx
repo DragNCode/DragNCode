@@ -7,13 +7,26 @@ import { SimpleInput, InputWithAddon } from "@repo/ui/input";
 import { useRecoilState } from "recoil";
 import { ShowElement } from "@/atoms/Sidebar/ShowElement";
 import { Elements } from "@/utils/Objects";
+import { useSocket } from "@/context/SocketProvider";
 
 export const Element: React.FC = () => {
 
     const [elementsList, setElementsList] = useRecoilState(ShowElement);
+    const { buttonClick } = useSocket();
 
     const addToList = (colorScheme: string, size: string, variant?: string) => {
-        setElementsList([...elementsList, Elements.Button]);
+        setElementsList([...elementsList, {
+            item: Elements.Button,
+            color: colorScheme,
+            size: size,
+            variant: variant ? variant : 'solid'
+        }]);
+        buttonClick([...elementsList, {
+            item: Elements.Button,
+            color: colorScheme,
+            size: size,
+            variant: variant ? variant : 'solid'
+        }]);
     }
 
     return (
@@ -30,9 +43,9 @@ export const Element: React.FC = () => {
 
             <Box className="m-auto flex mt-8 justify-evenly">
                 <SimpleButton variant="solid" colorScheme="teal" size="sm" text="Button" handleClick={addToList} />
-                <SimpleButton variant="outline" colorScheme="teal" size="sm" text="Button" />
-                <SimpleButton variant="ghost" colorScheme="teal" size="sm" text="Button" />
-                <SimpleButton variant="link" colorScheme="teal" size="sm" text="Button" />
+                <SimpleButton variant="outline" colorScheme="teal" size="sm" text="Button" handleClick={addToList} />
+                <SimpleButton variant="ghost" colorScheme="teal" size="sm" text="Button" handleClick={addToList} />
+                <SimpleButton variant="link" colorScheme="teal" size="sm" text="Button" handleClick={addToList} />
             </Box>
 
             <Partition text="Inputs" />
