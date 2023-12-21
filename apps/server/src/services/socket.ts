@@ -38,6 +38,11 @@ class SocketService {
                 io.emit('button:moved:left', msg);
             })
 
+            socket.on('button:move:down', (msg) => {
+                console.log('from server', msg);
+                io.emit('button:moved:down', msg);
+            })
+
         })
     }
 

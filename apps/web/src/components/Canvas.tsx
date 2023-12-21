@@ -19,21 +19,26 @@ export const Canvas: React.FC = () => {
         size: ''
     })
 
-    const { updatedElements, marginLeft } = useSocket();
+    const { updatedElements, marginLeft, marginTop } = useSocket();
 
     useEffect(() => {
-        console.log('updaed', updatedElements, marginLeft);
+        console.log('updaed',marginTop);
         
         if (marginLeft != ml) {
             //@ts-ignore
             setMl(marginLeft);
         }
 
+        if (marginTop != mt) {
+            //@ts-ignore
+            setMt(marginTop)
+        }
+
         if (updatedElements !== undefined) {
             console.log('update', updatedElements.msg);
             setElements(updatedElements.msg)
         }
-    }, [useSocket, updatedElements, marginLeft, ml]);
+    }, [useSocket, updatedElements, marginLeft, ml, marginTop, mt]);
     
     useEffect(() => {
         console.log(elements);
