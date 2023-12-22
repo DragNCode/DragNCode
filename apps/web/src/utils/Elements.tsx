@@ -1,16 +1,21 @@
+import { properties } from "@/atoms/elements/properties";
 import { SimpleButton } from "@/draggables/Buttons";
 import { SimpleCard } from "@/draggables/Cards";
 import { SimpleInput } from "@/draggables/Inputs";
 import { colors } from "@/types/colors";
 import React from "react";
+import { useRecoilState } from "recoil";
 
 const Button: React.FC = () => {
+
+    const [prop, setProps] = useRecoilState(properties);
+
     return (
         <SimpleButton 
-            buttonWidth={140} 
-            buttonHeight={35} 
-            cornerRadius={4} 
-            label='Click Me!' 
+            buttonWidth={prop.width} 
+            buttonHeight={prop.height} 
+            cornerRadius={prop.cornerRadius} 
+            label={prop.label} 
             color={colors.cyans[2]} 
         />
     )
