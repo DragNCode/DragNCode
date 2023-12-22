@@ -10,6 +10,7 @@ import { SimpleCard } from '@/draggables/Cards';
 import { currentSelectedElement } from '@/atoms/elements/currentSelectedElement';
 import { ButtonText } from '@/atoms/elements/ButtonText';
 import { PassThrough } from 'stream';
+import { InputProperties } from '@/atoms/elements/InputProperties';
 
 const Draw: React.FC = () => {
 
@@ -87,7 +88,15 @@ const WhiteBoard: React.FC = () => {
         })
     }
 
+    const handleInputClick = (number: number, word: string) => {
+        setCurrentElem({
+            number: number,
+            element: word
+        })
+    }
+
     const [attributes, setAttributes] = useRecoilState(ButtonText);
+    const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
 
     return (
         <Stage 
@@ -127,7 +136,7 @@ const WhiteBoard: React.FC = () => {
                                     <SimpleButton
                                         buttonHeight={buttonHeight ? buttonHeight : 40}
                                         buttonWidth={buttonWidth ? buttonWidth : 140}
-                                        color='teal'
+                                        color='#4dd0e1'
                                         cornerRadius={4}
                                         label={buttonText ? buttonText : 'Click Me!'}
                                         key={number}
@@ -137,6 +146,7 @@ const WhiteBoard: React.FC = () => {
                         }
 
                         if (word === elementsObject.Card) {
+
                             return (
                                 <SimpleCard 
                                     cardWidth={250}
@@ -150,14 +160,29 @@ const WhiteBoard: React.FC = () => {
                         }
 
                         if (word === elementsObject.Input) {
+
+                            let inputWidth, inputHeight;
+                            inputAttributes.height.forEach(item => {
+                                if (item[0] === number) {
+                                    inputHeight = item[1];
+                                }
+                            })
+                            inputAttributes.width.forEach(item => {
+                                if (item[0] === number) {
+                                    inputWidth = item[1];
+                                }
+                            })
+
                             return (
-                                <SimpleInput 
-                                    inputWidth={250}
-                                    inputHeight={25}
-                                    cornerRadius={2}
-                                    label='Enter text here...'
-                                    key={index}
-                                />
+                                <Group onClick={() => handleInputClick(number, word)} >
+                                    <SimpleInput
+                                        inputWidth={inputWidth ? inputWidth : 250}
+                                        inputHeight={inputHeight ? inputHeight : 30}
+                                        cornerRadius={2}
+                                        label='Enter text here...'
+                                        key={index}
+                                    />
+                                </Group>
                             )
                         }
 
@@ -174,6 +199,7 @@ const Properties: React.FC = () => {
 
     const [element, setElement] = useRecoilState(currentSelectedElement);
     const [attributes, setAttributes] = useRecoilState(ButtonText);
+    const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
 
 
     const handleTextChange = (e: any) => {
@@ -202,6 +228,19 @@ const Properties: React.FC = () => {
             setAttributes(newWidth);
             return;
         }
+        if (element.element === elementsObject.Input) {
+            let updatedWidth = [];
+            inputAttributes.width.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedWidth.push(item);
+                }
+            })
+            updatedWidth.push([element.number, parseInt(e.target.value)]);
+            const newWidth = {...inputAttributes, width: updatedWidth};
+            setInputAttributes(newWidth);
+            console.log(newWidth);
+            return;
+        }
     }
 
     const handleHeightChange = (e: any) => {
@@ -217,18 +256,30 @@ const Properties: React.FC = () => {
             setAttributes(newHeight);
             return;
         }
+        if (element.element === elementsObject.Input) {
+            let updatedHeight = [];
+            inputAttributes.height.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedHeight.push(item);
+                }
+            })
+            updatedHeight.push([element.number, parseInt(e.target.value)]);
+            const newHeight = {...inputAttributes, width: updatedHeight};
+            setInputAttributes(newHeight);
+            return;
+        }
     }
 
     return (
         <div>
             <h3>{element.element}</h3> <br /> <br /> <br />
-            <label htmlFor="">Enter Text for button</label> <br />
+            <label htmlFor="">Enter Text for {element.element}</label> <br />
             <input type="text" onChange={handleTextChange} placeholder=' Enter something' />
             <br /> <br />
-            <label htmlFor="">Enter Width for button</label> <br />
+            <label htmlFor="">Enter Width for {element.element}</label> <br />
             <input type="text" onChange={handleWidthChange} placeholder=' Enter width...' />
             <br /> <br />
-            <label htmlFor="">Enter Height for button</label> <br />
+            <label htmlFor="">Enter Height for {element.element}</label> <br />
             <input type="text" onChange={handleHeightChange} placeholder=' Enter height...' />
         </div>
     )
