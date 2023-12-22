@@ -1,8 +1,13 @@
 import { Layer, Stage } from 'react-konva';
 import { SimpleButton } from '../draggables/Buttons';
 import { SimpleInput } from '../draggables/Inputs';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { colors } from '../types/colors';
+import { SimpleCard } from '@/draggables/Cards';
+import { elementsToShow } from '@/atoms/elements/elementsToShow';
+import { useRecoilState } from 'recoil';
+import { elements } from '@/types/type';
+import { comp } from '@/utils/Elements';
 
 const Draw: React.FC = () => {
 
@@ -11,8 +16,8 @@ const Draw: React.FC = () => {
     useEffect(() => {
         const updateSize = () => {
             setStageSize({
-                width: window.innerWidth,
-                height: window.innerHeight
+                width: window.innerWidth*0.8,
+                height: window.innerHeight*0.9
             })
         }
 
@@ -26,27 +31,55 @@ const Draw: React.FC = () => {
 
     },[])
 
+    const [elem, setElem] = useRecoilState(elementsToShow);
+
     return (
-        <div>
-            <Stage height={stageSize.height} width={stageSize.width} >
+        <>
+
+            <Top />
+
+            <Stage 
+                height={stageSize.height}
+                width={stageSize.width}
+                className='inline-block bg-teal-700 rounded-md'
+            >
                 <Layer>
-                    <SimpleButton 
-                        buttonWidth={140} 
-                        buttonHeight={35} 
-                        cornerRadius={4} 
-                        label='Click Me!' 
-                        color={colors.teals[2]} 
-                    />
-                    <SimpleInput 
-                        inputWidth={250}
-                        inputHeight={25}
-                        cornerRadius={2}
-                        label='Enter text here...'
-                    />
+                    {
+                        elem.map((item, index) => {
+                            if (item === '') {
+                                return;
+                            }
+                            return (
+                                comp[item]
+                            )
+                        })
+                    }
                 </Layer>
             </Stage>
-        </div>
+        </>
     )
 }
 
 export default Draw;
+
+const Top: React.FC = () => {
+
+    const [elem, setElem] = useRecoilState(elementsToShow);
+
+    const handleClick = (item: string) => {
+        console.log(item);
+        setElem((prev) => [...prev, item]);
+    }
+
+    return (
+        <div className='flex mb-4' >
+            <div className='w-48' >
+                {
+                    elements.map((item, index) => (
+                        <button key={index} onClick={() => handleClick(item)} className='ml-2' >{item}</button>
+                    ))
+                } 
+            </div>
+        </div>
+    )
+}
