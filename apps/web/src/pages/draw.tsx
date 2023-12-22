@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { elementsToShow } from '@/atoms/elements/elementsToShow';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Group, Layer, Stage } from 'react-konva';
 import { elements, elementsObject } from '@/types/type';
 import { countItemInArray, getString } from '@/utils/Objects';
@@ -11,6 +11,7 @@ import { currentSelectedElement } from '@/atoms/elements/currentSelectedElement'
 import { ButtonText } from '@/atoms/elements/ButtonText';
 import { PassThrough } from 'stream';
 import { InputProperties } from '@/atoms/elements/InputProperties';
+import { CardProperties } from '@/atoms/elements/CardProperties';
 
 const Draw: React.FC = () => {
 
@@ -95,8 +96,9 @@ const WhiteBoard: React.FC = () => {
         })
     }
 
-    const [attributes, setAttributes] = useRecoilState(ButtonText);
-    const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
+    const attributes = useRecoilValue(ButtonText);
+    const inputAttributes = useRecoilValue(InputProperties);
+    const cardAttributes = useRecoilValue(CardProperties);
 
     return (
         <Stage 
@@ -147,15 +149,30 @@ const WhiteBoard: React.FC = () => {
 
                         if (word === elementsObject.Card) {
 
+                            let cardWidth, cardHeight;
+                            cardAttributes.height.forEach(item => {
+                                if (item[0] === number) {
+                                    cardHeight = item[1];
+                                }
+                            })
+                            cardAttributes.width.forEach(item => {
+                                if (item[0] === number) {
+                                    cardWidth = item[1];
+                                }
+                            })
+                            console.log(cardWidth, cardHeight);
+
                             return (
-                                <SimpleCard 
-                                    cardWidth={250}
-                                    cardHeight={200}
-                                    title='This is the title'
-                                    content='This is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the title'
-                                    cornerRadius={4}
-                                    key={index}
-                                />
+                                <Group onClick={() => handleButtonClick(number, word)} >
+                                    <SimpleCard 
+                                        cardWidth={cardWidth ? cardWidth : 250}
+                                        cardHeight={cardHeight ? cardHeight : 200}
+                                        title='This is the title'
+                                        content='This is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the title'
+                                        cornerRadius={4}
+                                        key={index}
+                                    />
+                                </Group>
                             )
                         }
 
@@ -197,9 +214,10 @@ const WhiteBoard: React.FC = () => {
 
 const Properties: React.FC = () => {
 
-    const [element, setElement] = useRecoilState(currentSelectedElement);
+    const element = useRecoilValue(currentSelectedElement);
     const [attributes, setAttributes] = useRecoilState(ButtonText);
     const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
+    const [cardAttributes, setCardAttributes] = useRecoilState(CardProperties);
 
 
     const handleTextChange = (e: any) => {
@@ -238,7 +256,18 @@ const Properties: React.FC = () => {
             updatedWidth.push([element.number, parseInt(e.target.value)]);
             const newWidth = {...inputAttributes, width: updatedWidth};
             setInputAttributes(newWidth);
-            console.log(newWidth);
+            return;
+        }
+        if (element.element === elementsObject.Card) {
+            let updatedWidth = [];
+            cardAttributes.width.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedWidth.push(item);
+                }
+            })
+            updatedWidth.push([element.number, parseInt(e.target.value)]);
+            const newWidth = {...cardAttributes, width: updatedWidth};
+            setCardAttributes(newWidth);
             return;
         }
     }
@@ -264,10 +293,24 @@ const Properties: React.FC = () => {
                 }
             })
             updatedHeight.push([element.number, parseInt(e.target.value)]);
-            const newHeight = {...inputAttributes, width: updatedHeight};
+            const newHeight = {...inputAttributes, height: updatedHeight};
             setInputAttributes(newHeight);
             return;
         }
+        if (element.element === elementsObject.Card) {
+            let updatedHeight = [];
+            cardAttributes.height.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedHeight.push(item);
+                }
+            })
+            updatedHeight.push([element.number, parseInt(e.target.value)]);
+            const newHeight = {...cardAttributes, height: updatedHeight};
+            setCardAttributes(newHeight);
+            console.log(newHeight);
+            return;
+        }
+
     }
 
     return (
