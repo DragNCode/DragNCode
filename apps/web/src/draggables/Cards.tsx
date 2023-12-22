@@ -1,16 +1,13 @@
 import { Group, Rect, Text, Image } from "react-konva";
 import { ICardWithImage, ISimpleCard } from "@/types/type";
-import { selectedProperty } from "@/atoms/elements/selectedProperty";
 import { useRecoilState } from "recoil";
 
 export const SimpleCard: React.FC<ISimpleCard> = (props) => {
 
     const { cardWidth, cardHeight, cornerRadius, title, content } = props;
 
-    const [prop, setProp] = useRecoilState(selectedProperty);
-
     return (
-        <Group draggable onClick={() => {setProp('Card')}} >
+        <Group draggable >
             <Rect
                 width={cardWidth}
                 height={cardHeight}

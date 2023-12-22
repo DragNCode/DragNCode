@@ -1,22 +1,22 @@
-import { properties } from "@/atoms/elements/properties";
 import { SimpleButton } from "@/draggables/Buttons";
 import { SimpleCard } from "@/draggables/Cards";
 import { SimpleInput } from "@/draggables/Inputs";
 import { colors } from "@/types/colors";
+import { ISimpleButton } from "@/types/type";
 import React from "react";
 import { useRecoilState } from "recoil";
 
-const Button: React.FC = () => {
+const Button: React.FC<ISimpleButton> = (props) => {
 
-    const [prop, setProps] = useRecoilState(properties);
+    const { buttonHeight, buttonWidth, cornerRadius, label, color } = props;
 
     return (
         <SimpleButton 
-            buttonWidth={prop.width} 
-            buttonHeight={prop.height} 
-            cornerRadius={prop.cornerRadius} 
-            label={prop.label} 
-            color={colors.cyans[2]} 
+            buttonWidth={buttonWidth} 
+            buttonHeight={buttonHeight} 
+            cornerRadius={cornerRadius} 
+            label={label} 
+            color={color} 
         />
     )
 }
@@ -34,6 +34,7 @@ const Card: React.FC = () => {
 }
 
 const Input: React.FC = () => {
+
     return (
         <SimpleInput 
             inputWidth={250}
@@ -42,10 +43,4 @@ const Input: React.FC = () => {
             label='Enter text here...'
         />
     )
-}
-
-export const comp: {[key: string]: React.ReactElement} = {
-    'Button': <Button />,
-    'Card': <Card />,
-    'Input': <Input />
 }

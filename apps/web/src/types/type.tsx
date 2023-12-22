@@ -37,5 +37,12 @@ export interface ICardWithImage {
 export const elements = [
     'Button',
     'Card',
-    'Input'
+    'Input',
 ]
+
+
+export const elementsObject = {
+    Button: 'Button',
+    Card: 'Card',
+    Input: 'Input',
+}

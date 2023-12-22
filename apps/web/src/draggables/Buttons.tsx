@@ -1,17 +1,14 @@
 import React from "react";
 import { Group, Rect, Text } from "react-konva";
 import { ISimpleButton } from "@/types/type";
-import { selectedProperty } from "@/atoms/elements/selectedProperty";
 import { useRecoilState } from "recoil";
 
 export const SimpleButton: React.FC<ISimpleButton> = (props) => {
 
-    const { buttonWidth, buttonHeight, cornerRadius, label, color } = props;
-    
-    const [prop, setProp] = useRecoilState(selectedProperty);
+    const { buttonWidth, buttonHeight, cornerRadius, label, color } = props; //key
 
     return (
-        <Group draggable onClick={() => {setProp('Button')}} >
+        <Group draggable >
             <Rect
                 width={buttonWidth}
                 height={buttonHeight}
