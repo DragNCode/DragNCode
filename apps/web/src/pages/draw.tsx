@@ -87,7 +87,7 @@ const WhiteBoard: React.FC = () => {
         })
     }
 
-    const [text, setText] = useRecoilState(ButtonText);
+    const [attributes, setAttributes] = useRecoilState(ButtonText);
 
     return (
         <Stage 
@@ -105,25 +105,31 @@ const WhiteBoard: React.FC = () => {
  
                         if (word === elementsObject.Button) {
 
-                            let deep;
-
-                            text.forEach(item => {
+                            let buttonText, buttonWidth, buttonHeight;
+                            attributes.text.forEach(item => {
                                 if (item[0] === number) {
-                                    deep = item[1];
-                                    console.log('object');
+                                    buttonText = item[1];
                                 }
                             })
-
-                            console.log(deep);
+                            attributes.width.forEach(item => {
+                                if (item[0] === number) {
+                                    buttonWidth = item[1];
+                                }
+                            })
+                            attributes.height.forEach(item => {
+                                if (item[0] === number) {
+                                    buttonHeight = item[1];
+                                }
+                            })
 
                             return (
                                 <Group onClick={() => handleButtonClick(number, word)} >
                                     <SimpleButton
-                                        buttonHeight={40}
-                                        buttonWidth={140}
+                                        buttonHeight={buttonHeight ? buttonHeight : 40}
+                                        buttonWidth={buttonWidth ? buttonWidth : 140}
                                         color='teal'
                                         cornerRadius={4}
-                                        label={deep ? deep : 'Click Me!'}
+                                        label={buttonText ? buttonText : 'Click Me!'}
                                         key={number}
                                     />
                                 </Group>
@@ -167,23 +173,63 @@ const WhiteBoard: React.FC = () => {
 const Properties: React.FC = () => {
 
     const [element, setElement] = useRecoilState(currentSelectedElement);
-    const [text, setText] = useRecoilState(ButtonText);
+    const [attributes, setAttributes] = useRecoilState(ButtonText);
 
-    const handleChange = (e: any) => {
+
+    const handleTextChange = (e: any) => {
         const { number } = element;
         let updateText = []
-        text.forEach(item => {
+        attributes.text.forEach(item => {
             if (item[0] !== number) {
                 updateText.push(item);
             }
         });
         updateText.push([number, e.target.value]);
-        setText(updateText);
+        const newText = {...attributes, text: updateText};
+        setAttributes(newText);
+    }
+
+    const handleWidthChange = (e: any) => {
+        if (element.element === elementsObject.Button) {
+            let updatedWidth = [];
+            attributes.width.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedWidth.push(item);
+                }
+            });
+            updatedWidth.push([element.number, parseInt(e.target.value)]);
+            const newWidth = {...attributes, width: updatedWidth};
+            setAttributes(newWidth);
+            return;
+        }
+    }
+
+    const handleHeightChange = (e: any) => {
+        if (element.element === elementsObject.Button) {
+            let updatedHeight = [];
+            attributes.height.forEach(item => {
+                if (item[0] !== element.number) {
+                    updatedHeight.push(item);
+                }
+            });
+            updatedHeight.push([element.number, parseInt(e.target.value)]);
+            const newHeight = {...attributes, height: updatedHeight};
+            setAttributes(newHeight);
+            return;
+        }
     }
 
     return (
         <div>
-            <input type="text" onChange={handleChange} placeholder='enter something' />
+            <h3>{element.element}</h3> <br /> <br /> <br />
+            <label htmlFor="">Enter Text for button</label> <br />
+            <input type="text" onChange={handleTextChange} placeholder=' Enter something' />
+            <br /> <br />
+            <label htmlFor="">Enter Width for button</label> <br />
+            <input type="text" onChange={handleWidthChange} placeholder=' Enter width...' />
+            <br /> <br />
+            <label htmlFor="">Enter Height for button</label> <br />
+            <input type="text" onChange={handleHeightChange} placeholder=' Enter height...' />
         </div>
     )
 }
