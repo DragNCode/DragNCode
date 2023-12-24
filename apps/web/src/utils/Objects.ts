@@ -23,17 +23,14 @@ export const getString = (inputString: string) => {
 }
 
 export const countItemInArray: (array: string[], item: string) => number = (array, item) => {
-
     let count = 0;
-
     array.forEach(element => {
-
         const word = getString(element);
-
         if (word.word === item) {
             count++;
         }
     });
-
     return count;
 }
+
+export const BACKEND_URL = 'http://localhost:3000';

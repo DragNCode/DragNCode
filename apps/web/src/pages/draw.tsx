@@ -3,7 +3,7 @@ import { elementsToShow } from '@/atoms/elements/elementsToShow';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Group, Layer, Stage } from 'react-konva';
 import { elements, elementsObject } from '@/types/type';
-import { countItemInArray, getString } from '@/utils/Objects';
+import { BACKEND_URL, countItemInArray, getString } from '@/utils/Objects';
 import { SimpleButton } from '@/draggables/Buttons';
 import { SimpleInput } from '@/draggables/Inputs';
 import { SimpleCard } from '@/draggables/Cards';
@@ -14,6 +14,7 @@ import { CardProperties } from '@/atoms/elements/CardProperties';
 import { button } from '@/atoms/json1/button';
 import { card } from '@/atoms/json1/card';
 import { input } from '@/atoms/json1/input';
+import axios from 'axios';
 
 const Draw: React.FC = () => {
 
@@ -44,10 +45,21 @@ const Top: React.FC = () => {
         setElem((prev) => [...prev, `${item}${count+1}`]);
     }
 
-    const doMagic = () => {
+    const doMagic = async () => {
         console.log('button',buttonJson)
         console.log('card',cardJson)
         console.log('input',inputJson)
+
+        const body = {
+            buttonJson1: buttonJson,
+            cardJson1: cardJson,
+            inputJson1: inputJson
+        }
+
+        const req = await axios.post(`${BACKEND_URL}/api/magic`, JSON.stringify(body));
+        const res = await req.data;
+        console.log(res);
+
     }
 
     return (
