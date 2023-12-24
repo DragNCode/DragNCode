@@ -13,6 +13,7 @@ import { InputProperties } from '@/atoms/elements/InputProperties';
 import { CardProperties } from '@/atoms/elements/CardProperties';
 import { button } from '@/atoms/json1/button';
 import { card } from '@/atoms/json1/card';
+import { input } from '@/atoms/json1/input';
 
 const Draw: React.FC = () => {
 
@@ -36,6 +37,7 @@ const Top: React.FC = () => {
     const [elem, setElem] = useRecoilState(elementsToShow);
     const [buttonJson, setButtonJson] = useRecoilState(button);
     const [cardJson, setCardJson] = useRecoilState(card);
+    const [inputJson, setInputJson] = useRecoilState(input);
 
     const handleClick = (item: string) => {
         const count = countItemInArray(elem, item);
@@ -45,6 +47,7 @@ const Top: React.FC = () => {
     const doMagic = () => {
         console.log('button',buttonJson)
         console.log('card',cardJson)
+        console.log('input',inputJson)
     }
 
     return (
@@ -89,6 +92,7 @@ const WhiteBoard: React.FC = () => {
     const [currentElem, setCurrentElem] = useRecoilState(currentSelectedElement);
     const [buttonJson, setButtonJson] = useRecoilState(button);
     const [cardJson, setCardJson] = useRecoilState(card);
+    const [inputJson, setInputJson] = useRecoilState(input);
     const attributes = useRecoilValue(ButtonText);
     const inputAttributes = useRecoilValue(InputProperties);
     const cardAttributes = useRecoilValue(CardProperties);
@@ -229,6 +233,69 @@ const WhiteBoard: React.FC = () => {
 
     }
 
+    const handleInputDrag = (
+        number: number,
+        word: string,
+        coordinates: {
+            x: number,
+            y: number
+        }
+    ) => {
+        console.log(word, number, coordinates);
+
+        const uniqueId: string = `${word}${number}`;
+        let inputWidth: number = 250, inputHeight: number = 30;
+        inputAttributes.width.forEach(item => {
+            if (item[0] === number) {
+                inputWidth = item[1]
+            }
+        })
+        inputAttributes.height.forEach(item => {
+            if (item[0] === number) {
+                inputHeight = item[1];
+            }
+        })
+
+        const inputInfo = {
+            id: uniqueId,
+            coordinates: {
+                x: coordinates.x,
+                y: coordinates.y
+            },
+            properties: {
+                width: inputWidth,
+                height: inputHeight
+            }
+        }
+        const alreadyPresentInput = inputJson.find(item => item.id === uniqueId);
+        if (alreadyPresentInput) {
+            const updatedInputJson = inputJson.map(item => {
+                if (item.id === uniqueId) {
+                    return {
+                        ...item,
+                        coordinates: {
+                            x: coordinates.x,
+                            y: coordinates.y
+                        },
+                        properties: {
+                            width: inputWidth,
+                            height: inputHeight
+                        }
+                    }
+                } else {
+                    return item;
+                }
+            })
+            setInputJson(updatedInputJson);
+        } else {
+            setInputJson([
+                ...inputJson,
+                inputInfo
+            ])
+        }
+
+    }
+
     return (
         <Stage
             height={stageSize.height}
@@ -348,7 +415,21 @@ const WhiteBoard: React.FC = () => {
                             })
 
                             return (
-                                <Group onClick={() => handleInputClick(number, word)} >
+                                <Group 
+                                    onClick={() => handleInputClick(number, word)}
+                                    draggable
+                                    onDragMove={(e) => {
+                                        handleInputDrag(
+                                            number,
+                                            word,
+                                            {
+                                                x: e.evt.clientX,
+                                                y: e.evt.clientY
+                                            }
+                                        )
+                                    }}
+                                    key={number+word}
+                                >
                                     <SimpleInput
                                         inputWidth={inputWidth ? inputWidth : 250}
                                         inputHeight={inputHeight ? inputHeight : 30}
@@ -377,6 +458,7 @@ const Properties: React.FC = () => {
     const [cardAttributes, setCardAttributes] = useRecoilState(CardProperties);
     const [buttonJson, setButtonJson] = useRecoilState(button);
     const [cardJson, setCardJson] = useRecoilState(card);
+    const [inputJson, setInputJson] = useRecoilState(input);
 
 
     const handleTextChange = (e: any) => {
@@ -444,6 +526,7 @@ const Properties: React.FC = () => {
             return;
         }
         if (element.element === elementsObject.Input) {
+
             let updatedWidth = [];
             inputAttributes.width.forEach(item => {
                 if (item[0] !== element.number) {
@@ -453,6 +536,42 @@ const Properties: React.FC = () => {
             updatedWidth.push([element.number, parseInt(e.target.value)]);
             const newWidth = {...inputAttributes, width: updatedWidth};
             setInputAttributes(newWidth);
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentInput = inputJson.find(item => item.id === uniqueId);
+            if (alreadyPresentInput) {
+                const updatedInputJson = inputJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                width: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setInputJson(updatedInputJson);
+            } else {
+                setInputJson([
+                    ...inputJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: parseInt(e.target.value),
+                            height: 30
+                        }
+                    }
+                ])
+            }
+
             return;
         }
         if (element.element === elementsObject.Card) {
@@ -496,7 +615,7 @@ const Properties: React.FC = () => {
                         },
                         properties: {
                             width: parseInt(e.target.value),
-                            height: 40
+                            height: 200
                         }
                     }
                 ])
@@ -557,6 +676,7 @@ const Properties: React.FC = () => {
             return;
         }
         if (element.element === elementsObject.Input) {
+
             let updatedHeight = [];
             inputAttributes.height.forEach(item => {
                 if (item[0] !== element.number) {
@@ -566,6 +686,42 @@ const Properties: React.FC = () => {
             updatedHeight.push([element.number, parseInt(e.target.value)]);
             const newHeight = {...inputAttributes, height: updatedHeight};
             setInputAttributes(newHeight);
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentInput = inputJson.find(item => item.id === uniqueId);
+            if (alreadyPresentInput) {
+                const updatedInputJson = inputJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                height: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setInputJson(inputJson);
+            } else {
+                setInputJson([
+                    ...inputJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: 250,
+                            height: parseInt(e.target.value)
+                        }
+                    }
+                ])
+            }
+
             return;
         }
         if (element.element === elementsObject.Card) {
@@ -608,7 +764,7 @@ const Properties: React.FC = () => {
                             y: 0
                         },
                         properties: {
-                            width: 140,
+                            width: 250,
                             height: parseInt(e.target.value)
                         }
                     }

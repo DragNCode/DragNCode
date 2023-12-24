@@ -10,7 +10,7 @@ export const InputProperties = atom({
             [0, 250]
         ],
         width: [
-            [0, 40]
+            [0, 30]
         ]
     }
 })
