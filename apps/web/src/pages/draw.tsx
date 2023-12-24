@@ -12,6 +12,7 @@ import { ButtonText } from '@/atoms/elements/ButtonText';
 import { InputProperties } from '@/atoms/elements/InputProperties';
 import { CardProperties } from '@/atoms/elements/CardProperties';
 import { button } from '@/atoms/json1/button';
+import { card } from '@/atoms/json1/card';
 
 const Draw: React.FC = () => {
 
@@ -34,6 +35,7 @@ const Top: React.FC = () => {
 
     const [elem, setElem] = useRecoilState(elementsToShow);
     const [buttonJson, setButtonJson] = useRecoilState(button);
+    const [cardJson, setCardJson] = useRecoilState(card);
 
     const handleClick = (item: string) => {
         const count = countItemInArray(elem, item);
@@ -41,7 +43,8 @@ const Top: React.FC = () => {
     }
 
     const doMagic = () => {
-        console.log(buttonJson)
+        console.log('button',buttonJson)
+        console.log('card',cardJson)
     }
 
     return (
@@ -85,6 +88,7 @@ const WhiteBoard: React.FC = () => {
     const [elem, setElem] = useRecoilState(elementsToShow);
     const [currentElem, setCurrentElem] = useRecoilState(currentSelectedElement);
     const [buttonJson, setButtonJson] = useRecoilState(button);
+    const [cardJson, setCardJson] = useRecoilState(card);
     const attributes = useRecoilValue(ButtonText);
     const inputAttributes = useRecoilValue(InputProperties);
     const cardAttributes = useRecoilValue(CardProperties);
@@ -162,6 +166,69 @@ const WhiteBoard: React.FC = () => {
         }
     }
 
+    const handleCardDrag = (
+        number: number,
+        word: string,
+        coordinates: {
+            x: number,
+            y: number
+        }
+    ) => {
+        console.log(number, word, coordinates);
+
+        const uniqueId: string = `${word}${number}`;
+        let cardWidth: number = 250, cardHeight: number = 200;
+        cardAttributes.width.forEach(item => {
+            if (item[0] === number) {
+                cardWidth = item[1]
+            }
+        })
+        cardAttributes.height.forEach(item => {
+            if (item[0] === number) {
+                cardHeight = item[1];
+            }
+        })
+
+        const cardInfo = {
+            id: uniqueId,
+            coordinates: {
+                x: coordinates.x,
+                y: coordinates.y
+            },
+            properties: {
+                width: cardWidth,
+                height: cardHeight
+            }
+        }
+        const alreadyPresentCard = cardJson.find(item => item.id === uniqueId);
+        if (alreadyPresentCard) {
+            const updatedCardJson = cardJson.map(item => {
+                if (item.id === uniqueId) {
+                    return {
+                        ...item,
+                        coordinates: {
+                            x: coordinates.x,
+                            y: coordinates.y
+                        },
+                        properties: {
+                            width: cardWidth,
+                            height: cardHeight
+                        }
+                    }
+                } else {
+                    return item;
+                }
+            })
+            setCardJson(updatedCardJson);
+        } else {
+            setCardJson([
+                ...cardJson,
+                cardInfo
+            ])
+        }
+
+    }
+
     return (
         <Stage
             height={stageSize.height}
@@ -210,7 +277,7 @@ const WhiteBoard: React.FC = () => {
                                             }
                                         )
                                     }}
-                                    key={number}
+                                    key={number+word}
                                 >
                                     <SimpleButton
                                         buttonHeight={buttonHeight ? buttonHeight : 40}
@@ -242,6 +309,17 @@ const WhiteBoard: React.FC = () => {
                                 <Group 
                                     onClick={() => handleButtonClick(number, word)}
                                     draggable
+                                    onDragMove={e => {
+                                        handleCardDrag(
+                                            number,
+                                            word,
+                                            {
+                                                x: e.evt.clientX,
+                                                y: e.evt.clientY
+                                            }
+                                        )
+                                    }}
+                                    key={number+word}
                                 >
                                     <SimpleCard 
                                         cardWidth={cardWidth ? cardWidth : 250}
@@ -298,6 +376,7 @@ const Properties: React.FC = () => {
     const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
     const [cardAttributes, setCardAttributes] = useRecoilState(CardProperties);
     const [buttonJson, setButtonJson] = useRecoilState(button);
+    const [cardJson, setCardJson] = useRecoilState(card);
 
 
     const handleTextChange = (e: any) => {
@@ -377,6 +456,7 @@ const Properties: React.FC = () => {
             return;
         }
         if (element.element === elementsObject.Card) {
+
             let updatedWidth = [];
             cardAttributes.width.forEach(item => {
                 if (item[0] !== element.number) {
@@ -386,6 +466,41 @@ const Properties: React.FC = () => {
             updatedWidth.push([element.number, parseInt(e.target.value)]);
             const newWidth = {...cardAttributes, width: updatedWidth};
             setCardAttributes(newWidth);
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentCard = cardJson.find(item => item.id === uniqueId);
+            if (alreadyPresentCard) {
+                const updatedCardJson = cardJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                width: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setCardJson(updatedCardJson);
+            } else {
+                setCardJson([
+                    ...cardJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: parseInt(e.target.value),
+                            height: 40
+                        }
+                    }
+                ])
+            }
             return;
         }
     }
@@ -454,6 +569,7 @@ const Properties: React.FC = () => {
             return;
         }
         if (element.element === elementsObject.Card) {
+
             let updatedHeight = [];
             cardAttributes.height.forEach(item => {
                 if (item[0] !== element.number) {
@@ -463,6 +579,42 @@ const Properties: React.FC = () => {
             updatedHeight.push([element.number, parseInt(e.target.value)]);
             const newHeight = {...cardAttributes, height: updatedHeight};
             setCardAttributes(newHeight);
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentCard = cardJson.find(item => item.id === uniqueId);
+            if (alreadyPresentCard) {
+                const updatedCardJson = cardJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                height: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setCardJson(updatedCardJson);
+            } else {
+                setCardJson([
+                    ...cardJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: 140,
+                            height: parseInt(e.target.value)
+                        }
+                    }
+                ])
+            }
+
             return;
         }
 

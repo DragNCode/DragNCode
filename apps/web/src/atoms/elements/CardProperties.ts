@@ -7,10 +7,10 @@ export const CardProperties = atom({
             [0, 'placeholder']
         ],
         height: [
-            [0, 250]
+            [0, 200]
         ],
         width: [
-            [0, 40]
+            [0, 250]
         ]
     }
 })
