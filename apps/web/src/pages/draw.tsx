@@ -9,9 +9,9 @@ import { SimpleInput } from '@/draggables/Inputs';
 import { SimpleCard } from '@/draggables/Cards';
 import { currentSelectedElement } from '@/atoms/elements/currentSelectedElement';
 import { ButtonText } from '@/atoms/elements/ButtonText';
-import { PassThrough } from 'stream';
 import { InputProperties } from '@/atoms/elements/InputProperties';
 import { CardProperties } from '@/atoms/elements/CardProperties';
+import { button } from '@/atoms/json1/button';
 
 const Draw: React.FC = () => {
 
@@ -33,15 +33,15 @@ export default Draw;
 const Top: React.FC = () => {
 
     const [elem, setElem] = useRecoilState(elementsToShow);
-
-    useEffect(() => {
-        console.log(elem);
-    }, [elem]);
+    const [buttonJson, setButtonJson] = useRecoilState(button);
 
     const handleClick = (item: string) => {
         const count = countItemInArray(elem, item);
-        console.log(count)
         setElem((prev) => [...prev, `${item}${count+1}`]);
+    }
+
+    const doMagic = () => {
+        console.log(buttonJson)
     }
 
     return (
@@ -53,6 +53,9 @@ const Top: React.FC = () => {
                     ))
                 }
             </div>
+
+            <button onClick={doMagic} >Magic!</button>
+
         </div>
     )
 }
@@ -79,8 +82,12 @@ const WhiteBoard: React.FC = () => {
 
     },[])
 
-    const [elem, setElem] = useRecoilState(elementsToShow); // button1 , card1, button2
+    const [elem, setElem] = useRecoilState(elementsToShow);
     const [currentElem, setCurrentElem] = useRecoilState(currentSelectedElement);
+    const [buttonJson, setButtonJson] = useRecoilState(button);
+    const attributes = useRecoilValue(ButtonText);
+    const inputAttributes = useRecoilValue(InputProperties);
+    const cardAttributes = useRecoilValue(CardProperties);
 
     const handleButtonClick = (number: number, word: string) => {
         setCurrentElem({
@@ -96,12 +103,67 @@ const WhiteBoard: React.FC = () => {
         })
     }
 
-    const attributes = useRecoilValue(ButtonText);
-    const inputAttributes = useRecoilValue(InputProperties);
-    const cardAttributes = useRecoilValue(CardProperties);
+    const handleButtonDrag = (
+        number: number, 
+        word: string, 
+        coordinates: {x: number, y: number},
+    ) => {
+        const uniqueId: string = `${word}${number}`;
+        let buttonWidth: number, buttonHeight: number;
+        attributes.width.forEach(item => {
+            if (item[0] === number) {
+                buttonWidth = item[1]
+            }
+        })
+        attributes.height.forEach(item => {
+            if (item[0] === number) {
+                buttonHeight = item[1];
+            }
+        })
+        
+        const buttonInfo = {
+            id: uniqueId,
+            coordinates: {
+                x: coordinates.x,
+                y: coordinates.y
+            },
+            properties: {
+                // @ts-ignore
+                width: buttonWidth ? buttonWidth : 140,
+                // @ts-ignore
+                height: buttonHeight ? buttonHeight : 40
+            }
+        }
+        const alreadyPresentButton = buttonJson.find(item => item.id === uniqueId);
+        if (alreadyPresentButton) {
+            const updatedButtonJson = buttonJson.map(item => {
+                if (item.id === uniqueId) {
+                    return {
+                        ...item,
+                        coordinates: {
+                            x: coordinates.x,
+                            y: coordinates.y
+                        },
+                        properties: {
+                            width: buttonWidth ? buttonWidth : 140,
+                            height: buttonHeight ? buttonHeight : 40
+                        }
+                    }
+                } else {
+                    return item;
+                }
+            })
+            setButtonJson(updatedButtonJson);
+        } else {
+            setButtonJson([
+                ...buttonJson,
+                buttonInfo
+            ])
+        }
+    }
 
     return (
-        <Stage 
+        <Stage
             height={stageSize.height}
             width={stageSize.width}
             className='inline-block bg-teal-700 rounded-md'
@@ -116,7 +178,8 @@ const WhiteBoard: React.FC = () => {
  
                         if (word === elementsObject.Button) {
 
-                            let buttonText, buttonWidth, buttonHeight;
+                            //@ts-ignore
+                            let buttonText, buttonWidth = 140, buttonHeight = 40;
                             attributes.text.forEach(item => {
                                 if (item[0] === number) {
                                     buttonText = item[1];
@@ -134,7 +197,21 @@ const WhiteBoard: React.FC = () => {
                             })
 
                             return (
-                                <Group onClick={() => handleButtonClick(number, word)} >
+                                <Group 
+                                    onClick={() => handleButtonClick(number, word)}
+                                    draggable
+                                    onDragMove={(e) => {
+                                        handleButtonDrag(
+                                            number,
+                                            word,
+                                            {
+                                                x: e.evt.clientX,
+                                                y: e.evt.clientY
+                                            }
+                                        )
+                                    }}
+                                    key={number}
+                                >
                                     <SimpleButton
                                         buttonHeight={buttonHeight ? buttonHeight : 40}
                                         buttonWidth={buttonWidth ? buttonWidth : 140}
@@ -160,10 +237,12 @@ const WhiteBoard: React.FC = () => {
                                     cardWidth = item[1];
                                 }
                             })
-                            console.log(cardWidth, cardHeight);
 
                             return (
-                                <Group onClick={() => handleButtonClick(number, word)} >
+                                <Group 
+                                    onClick={() => handleButtonClick(number, word)}
+                                    draggable
+                                >
                                     <SimpleCard 
                                         cardWidth={cardWidth ? cardWidth : 250}
                                         cardHeight={cardHeight ? cardHeight : 200}
@@ -218,6 +297,7 @@ const Properties: React.FC = () => {
     const [attributes, setAttributes] = useRecoilState(ButtonText);
     const [inputAttributes, setInputAttributes] = useRecoilState(InputProperties);
     const [cardAttributes, setCardAttributes] = useRecoilState(CardProperties);
+    const [buttonJson, setButtonJson] = useRecoilState(button);
 
 
     const handleTextChange = (e: any) => {
@@ -234,7 +314,9 @@ const Properties: React.FC = () => {
     }
 
     const handleWidthChange = (e: any) => {
+
         if (element.element === elementsObject.Button) {
+
             let updatedWidth = [];
             attributes.width.forEach(item => {
                 if (item[0] !== element.number) {
@@ -244,6 +326,42 @@ const Properties: React.FC = () => {
             updatedWidth.push([element.number, parseInt(e.target.value)]);
             const newWidth = {...attributes, width: updatedWidth};
             setAttributes(newWidth);
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentButton = buttonJson.find(item => item.id === uniqueId);
+            if (alreadyPresentButton) {
+                const updatedButtonJson = buttonJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                width: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setButtonJson(updatedButtonJson);
+            } else {
+                setButtonJson([
+                    ...buttonJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: parseInt(e.target.value),
+                            height: 40
+                        }
+                    }
+                ])
+            }
+
             return;
         }
         if (element.element === elementsObject.Input) {
@@ -272,8 +390,10 @@ const Properties: React.FC = () => {
         }
     }
 
-    const handleHeightChange = (e: any) => {
+    const handleHeightChange = (e: any) => {   
+
         if (element.element === elementsObject.Button) {
+
             let updatedHeight = [];
             attributes.height.forEach(item => {
                 if (item[0] !== element.number) {
@@ -283,6 +403,42 @@ const Properties: React.FC = () => {
             updatedHeight.push([element.number, parseInt(e.target.value)]);
             const newHeight = {...attributes, height: updatedHeight};
             setAttributes(newHeight);
+
+
+            const uniqueId: string = `${element.element}${element.number}`;
+
+            const alreadyPresentButton = buttonJson.find(item => item.id === uniqueId);
+            if (alreadyPresentButton) {
+                const updatedButtonJson = buttonJson.map(item => {
+                    if (item.id === uniqueId) {
+                        return {
+                            ...item,
+                            properties: {
+                                ...item.properties,
+                                height: parseInt(e.target.value),
+                            }
+                        }
+                    } else {
+                        return item;
+                    }
+                })
+                setButtonJson(updatedButtonJson);
+            } else {
+                setButtonJson([
+                    ...buttonJson,
+                    {
+                        id: uniqueId,
+                        coordinates: {
+                            x: 0,
+                            y: 0
+                        },
+                        properties: {
+                            width: 140,
+                            height: parseInt(e.target.value)
+                        }
+                    }
+                ])
+            }
             return;
         }
         if (element.element === elementsObject.Input) {
@@ -307,7 +463,6 @@ const Properties: React.FC = () => {
             updatedHeight.push([element.number, parseInt(e.target.value)]);
             const newHeight = {...cardAttributes, height: updatedHeight};
             setCardAttributes(newHeight);
-            console.log(newHeight);
             return;
         }
 
