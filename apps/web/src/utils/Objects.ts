@@ -34,3 +34,4 @@ export const countItemInArray: (array: string[], item: string) => number = (arra
 }
 
 export const BACKEND_URL = 'http://localhost:3000';
+export const ENGINE_URL = 'http://localhost:8080';
