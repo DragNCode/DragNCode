@@ -6,7 +6,7 @@ export function Card({
 }: {
   className?: string;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   href: string;
 }): JSX.Element {
   return (
@@ -19,7 +19,7 @@ export function Card({
       <h2>
         {title} <span>-&gt;</span>
       </h2>
-      <p>{children}</p>
+      {/* <p>{children}</p> */}
     </a>
   );
 }

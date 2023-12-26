@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
 import { SelectItems } from "@/types/type";
+import { useRecoilState } from "recoil";
+import { selectedCategory } from "@/atoms/Sidebar/selectedCategory";
 
 const SideBar = () => {
     return (
@@ -14,7 +16,7 @@ export default SideBar;
 
 const Selector: React.FC = () => {
 
-    const [value, setValue] = React.useState({index: 0, value: ""});
+    const [value, setValue] = useRecoilState(selectedCategory);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue({
