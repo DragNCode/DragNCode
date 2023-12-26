@@ -22,7 +22,7 @@ const WhiteBoard: React.FC = () => {
     useEffect(() => {
         const updateSize = () => {
             setStageSize({
-                width: window.innerWidth*0.8,
+                width: window.innerWidth*0.6,
                 height: window.innerHeight*0.9
             })
         }
