@@ -1,23 +1,20 @@
-import { Button, Checkbox } from '@chakra-ui/react';
+"use client";
 
-interface SimpleButtonProps {
-    colorScheme: 'blue' | 'teal' | 'gray' | 'red' | 'orange' | 'yellow' | 'cyan' | 'purple'|'pink' ,
-    variant?: 'solid' | 'outline' | 'link' | 'ghost',
-    size: 'xs' | 'sm' | 'md' | 'lg',
-    text: string,
-    handleClick?: (colorScheme: string, size: string, variant?: string) => void | undefined
+import { ReactNode } from "react";
+
+interface ButtonProps {
+  children: ReactNode;
+  className?: string;
+  appName: string;
 }
 
-export const SimpleButton: React.FC<SimpleButtonProps> = (props) => {
-    const { colorScheme, variant, size, text, handleClick } = props
-    return (
-        <Button colorScheme={colorScheme} size={size} variant={variant} onClick={() => handleClick?.(colorScheme, size, variant)} >{text}</Button>
-    )
-}
-
-export const CheckBox: React.FC<SimpleButtonProps> = (props) => {
-    const {colorScheme, size, text, handleClick} = props;
-    return (
-        <Checkbox colorScheme={colorScheme} size={size} onChange={() => handleClick?.(colorScheme, size)}>{text}</Checkbox>
-    )   
-}
+export const Button = ({ children, className, appName }: ButtonProps) => {
+  return (
+    <button
+      className={className}
+      onClick={() => alert(`Hello from your ${appName} app!`)}
+    >
+      {children}
+    </button>
+  );
+};
