@@ -1,52 +1,75 @@
-import React from 'react';
-import { Stage, Layer, Rect, Text, Group } from 'react-konva';
+import React, { useEffect, useState } from 'react';
+import { Stage, Layer, Rect, Text, Image, Group, RegularPolygon } from 'react-konva';
 
-// const ContainedButton = ({ text, width, height, cornerRadius, backgroundColor, textColor }) => {
-//   return (
-//     <Group>
-//       <Rect
-//         width={width}
-//         height={height}
-//         fill={backgroundColor}
-//         cornerRadius={cornerRadius}
-//         shadowColor="rgba(0, 0, 0, 0.3)"
-//         shadowBlur={5}
-//         shadowOffset={{ x: 2, y: 2 }}
-//         shadowOpacity={0.8}
-//       />
-//       <Text
-//         text={text}
-//         width={width}
-//         height={height}
-//         align="center"
-//         verticalAlign="middle"
-//         fontSize={16}
-//         fill={textColor}
-//       />
-//     </Group>
-//   );
-// };
+const KonvaMusicCard = () => {
+  const cardWidth = 400;
+  const cardHeight = 150;
+  const cornerRadius = 10;
+  const cardColor = '#4CAF50'; // Green
+  const headingColor = 'white';
+  const subTextColor = 'lightgrey';
+  const controlButtonColor = '#2196F3'; // Blue
+  const iconColor = 'white';
 
-import { ContainedButton } from '@repo/ui/button';
+  const [image, setImage] = useState(null);
 
-const App = () => {
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = 'https://via.placeholder.com/200x200';
+    img.onload = () => {
+      setImage(img);
+    };
+  }, []);
+
   return (
-    <Stage width={5000} height={5000}>
+    <Stage width={500} height={500}>
       <Layer>
-        <ContainedButton
-          text="Click me"
-          width={200}
-          height={50}
-          cornerRadius={5}
-          backgroundColor="#2196F3"
-          textColor="#fff"
+        {/* Konva Rect as card background */}
+        <Group draggable >
+        <Rect
+          width={cardWidth}
+          height={cardHeight}
+          fill={cardColor}
+          cornerRadius={cornerRadius}
+          shadowBlur={10}
         />
+
+        {/* Text and Image content inside the card */}
+        <Group>
+          {/* Image */}
+          {image && (
+            <Image
+              image={image}
+              width={cardWidth * 0.4}
+              height={cardHeight}
+              x={cardWidth * 0.6}
+            />
+          )}
+
+          {/* Song Details */}
+          <Group x={20} y={20} width={cardWidth * 0.6} height={cardHeight}>
+            {/* Heading (Song Name) */}
+            <Text
+              text="Song Name"
+              fontSize={18}
+              fontFamily="Arial"
+              fill={headingColor}
+            />
+
+            {/* Subtext (Singer Name) */}
+            <Text
+              text="Singer Name"
+              fontSize={12}
+              fontFamily="Arial"
+              fill={subTextColor}
+              y={30}
+            />
+          </Group>
+        </Group>
+        </Group>
       </Layer>
     </Stage>
-    // <div>
-    //     <Card title='hi' href='abc'   />
-    // </div>
   );
 };
 
-export default App;
+export default KonvaMusicCard;
