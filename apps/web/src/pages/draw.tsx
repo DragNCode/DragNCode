@@ -46,15 +46,14 @@ const Top: React.FC = () => {
     }
 
     const doMagic = async () => {
-        console.log('button',buttonJson)
-        console.log('card',cardJson)
-        console.log('input',inputJson)
 
         const body = {
             buttonJson1: buttonJson,
             cardJson1: cardJson,
             inputJson1: inputJson
         }
+
+        console.log(body);
 
         const req = await axios.post(`${BACKEND_URL}/api/magic`, JSON.stringify(body));
         const res = await req.data;
@@ -190,7 +189,6 @@ const WhiteBoard: React.FC = () => {
             y: number
         }
     ) => {
-        console.log(number, word, coordinates);
 
         const uniqueId: string = `${word}${number}`;
         let cardWidth: number = 250, cardHeight: number = 200;
@@ -253,7 +251,6 @@ const WhiteBoard: React.FC = () => {
             y: number
         }
     ) => {
-        console.log(word, number, coordinates);
 
         const uniqueId: string = `${word}${number}`;
         let inputWidth: number = 250, inputHeight: number = 30;
@@ -802,3 +799,4 @@ const Properties: React.FC = () => {
         </div>
     )
 }
+

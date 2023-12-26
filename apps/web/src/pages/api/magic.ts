@@ -16,9 +16,9 @@ export default async function handler(
     // decide wether to convert json1 to json2 here and then send it to engine or
     // directly send to engine
 
-    const sendData = await axios.post(`${ENGINE_URL}/engine/json1`);
-    const response = await sendData.data;
-    console.log(response)
+    // const sendData = await axios.post(`${ENGINE_URL}/engine/json1`);
+    // const response = await sendData.data;
+    // console.log(response)
 
     res.status(200).json({
         message: 'Recieved successfully'
