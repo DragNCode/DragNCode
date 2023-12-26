@@ -46,3 +46,10 @@ export const elementsObject = {
     Card: 'Card',
     Input: 'Input',
 }
+
+export const SelectItems = [
+    'Elements',
+    'Components',
+    'Pages',
+    'Text'
+]

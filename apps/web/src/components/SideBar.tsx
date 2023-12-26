@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
+import { SelectItems } from "@/types/type";
 
 const SideBar = () => {
     return (
@@ -13,10 +14,13 @@ export default SideBar;
 
 const Selector: React.FC = () => {
 
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState({index: 0, value: ""});
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
+        setValue({
+            index: newValue,
+            value: SelectItems[newValue]
+        });
     };
 
     useEffect(() => {
@@ -27,16 +31,17 @@ const Selector: React.FC = () => {
         <div>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs 
-                    value={value} 
+                    value={value.index} 
                     onChange={handleChange} 
                     aria-label="basic tabs example"
                     variant="scrollable"
                     scrollButtons="auto"
                 >
-                    <Tab sx={{color: 'white'}} label="Item One" />
-                    <Tab sx={{color: 'white'}} label="Item Two" />
-                    <Tab sx={{color: 'white'}} label="Item Three" />
-                    <Tab sx={{color: 'white'}} label="Item Four" />
+                    {
+                        SelectItems.map(item => (
+                            <Tab key={item} sx={{color: 'white'}} label={item} />
+                        ))
+                    }
                 </Tabs>
             </Box>  
         </div>
