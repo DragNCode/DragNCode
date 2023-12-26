@@ -1,44 +1,137 @@
-"use client";
-import React from "react";
-import { Stage, Layer, Rect, Text, Group } from "react-konva";
+import React, { useState } from "react";
 
-type IContainedButtonProps = {
-  text: string;
-  width: number;
-  height: number;
-  cornerRadius: number;
-  backgroundColor: string;
-  textColor: string;
-};
+import { Group, Rect, Text } from "react-konva";
 
-export const ContainedButton: React.FC<IContainedButtonProps> = ({
-  text,
-  width,
-  height,
-  cornerRadius,
-  backgroundColor,
-  textColor,
-}) => {
+interface IButtonProps {
+  label:string,
+  onClick: Function
+}
+
+export const CustomButton:React.FC<IButtonProps> = ({ label, onClick }) => {
+  const [isHovered, setHovered] = useState(false);
+  const [isClicked, setClicked] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+  };
+
+  const handleMouseDown = () => {
+    setClicked(true);
+  };
+
+  const handleMouseUp = () => {
+    setClicked(false);
+    onClick(label);
+  };
+
   return (
-    <Group>
+    <Group
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
       <Rect
-        width={width}
-        height={height}
-        fill={backgroundColor}
-        cornerRadius={cornerRadius}
-        shadowColor="rgba(0, 0, 0, 0.3)"
-        shadowBlur={5}
-        shadowOffset={{ x: 2, y: 2 }}
-        shadowOpacity={0.8}
+        width={100}
+        height={50}
+        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        cornerRadius={10}
       />
       <Text
-        text={text}
-        width={width}
-        height={height}
-        align="center"
-        verticalAlign="middle"
+        text={label}
+        x={50 - label.length * 3}
+        y={25 - 10}
         fontSize={16}
-        fill={textColor}
+        fill="white"
+      />
+    </Group>
+  );
+};
+
+export const OutlineButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
+  const [isHovered, setHovered] = useState(false);
+  const [isClicked, setClicked] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+  };
+
+  const handleMouseDown = () => {
+    setClicked(true);
+  };
+
+  const handleMouseUp = () => {
+    setClicked(false);
+    onClick(label);
+  };
+
+  return (
+    <Group
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
+      <Rect
+        width={100}
+        height={50}
+        fill="transparent"
+        stroke={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        strokeWidth={2}
+        cornerRadius={10}
+      />
+      <Text
+        text={label}
+        x={50 - label.length * 3}
+        y={25 - 10}
+        fontSize={16}
+        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+      />
+    </Group>
+  );
+};
+
+export const TextButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
+  const [isHovered, setHovered] = useState(false);
+  const [isClicked, setClicked] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+  };
+
+  const handleMouseDown = () => {
+    setClicked(true);
+  };
+
+  const handleMouseUp = () => {
+    setClicked(false);
+    onClick(label);
+  };
+
+  return (
+    <Group
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    >
+      <Text
+        text={label}
+        fontSize={16}
+        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        padding={10}
       />
     </Group>
   );

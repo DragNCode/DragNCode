@@ -1,5 +1,39 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Stage, Layer, Rect, Text, Image, Group, RegularPolygon } from 'react-konva';
+=======
+<<<<<<< HEAD
+
+
+const App = () => {
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  const handleRadioChange = (value) => {
+    setSelectedValue(value);
+    console.log('Selected value:', value);
+    // Perform any additional actions on radio button selection
+  };
+
+  const radioOptions = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+  ];
+
+  return (
+    <div>
+      <Stage width={3000} height={1000}>
+        <RadioGroup
+          options={radioOptions}
+          selectedValue={selectedValue}
+          onChange={handleRadioChange}
+        />
+      </Stage>
+    </div>
+=======
+import React from 'react';
+import { Stage, Layer, Rect, Text, Group } from 'react-konva';
+>>>>>>> 1f0ae00f1dc16e3716193a718ddd1e6d02fff8d7
 
 const KonvaMusicCard = () => {
   const cardWidth = 400;
@@ -69,7 +103,24 @@ const KonvaMusicCard = () => {
         </Group>
       </Layer>
     </Stage>
+<<<<<<< HEAD
   );
 };
 
 export default KonvaMusicCard;
+=======
+    // <div>
+    //     <Card title='hi' href='abc'   />
+    // </div>
+>>>>>>> 21a50d2521db89c2fad3aab5d24fa230d1a54e51
+  );
+};
+
+export default App;
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 21a50d2521db89c2fad3aab5d24fa230d1a54e51
+>>>>>>> 1f0ae00f1dc16e3716193a718ddd1e6d02fff8d7
