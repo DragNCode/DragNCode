@@ -16,7 +16,7 @@ interface IRadioGroupProps {
   onChange: Function;
 }
 
-const RadioButton: React.FC<IRadioButtonProps> = ({
+export const RadioButton: React.FC<IRadioButtonProps> = ({
   label,
   value,
   selectedValue,

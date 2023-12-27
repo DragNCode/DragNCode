@@ -1,88 +1,82 @@
-<<<<<<< HEAD
+import React from "react";
+import { Stage, Layer, Group, Circle, Text } from "react-konva";
 
+import { CustomButton, OutlineButton, TextButton } from "@repo/ui/button"; // Import your CustomButton component
+// Import your TextButton component
+import { Checkbox } from "@repo/ui/checkbox"; // Import your Checkbox component
+import { RadioButton } from "@repo/ui/radio"; // Import your RadioButton component
 
 const App = () => {
-  const [selectedValue, setSelectedValue] = useState(null);
-
-  const handleRadioChange = (value) => {
-    setSelectedValue(value);
-    console.log('Selected value:', value);
-    // Perform any additional actions on radio button selection
+  const handleButtonClick = (label) => {
+    console.log("Button Clicked:", label);
   };
 
-  const radioOptions = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
-  ];
+  const handleCheckboxChange = (isChecked) => {
+    console.log("Checkbox Checked:", isChecked);
+  };
+
+  const handleRadioChange = (value) => {
+    console.log("Radio Selected:", value);
+  };
 
   return (
-    <div>
-      <Stage width={3000} height={1000}>
-        <RadioGroup
-          options={radioOptions}
-          selectedValue={selectedValue}
-          onChange={handleRadioChange}
-        />
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Stage width={1400} height={11300}>
+        <Layer>
+          <Group y={0}>
+            <CustomButton
+              label="Custom Button"
+              onClick={() => handleButtonClick("Custom Button")}
+            />
+          </Group>
+
+          <Group y={100}>
+            <OutlineButton
+              label="Outline Button"
+              onClick={() => handleButtonClick("Outline Button")}
+            />
+          </Group>
+
+          <Group y={200}>
+            <TextButton
+              label="Text Button"
+              onClick={() => handleButtonClick("Text Button")}
+            />
+          </Group>
+
+          <Group y={300}>
+            <Checkbox label="Checkbox" onChange={handleCheckboxChange} />
+          </Group>
+
+          <Group y={400}>
+            <RadioButton
+              label="Option 1"
+              value="option1"
+              onChange={handleRadioChange}
+            />
+          </Group>
+
+          <Group y={550}>
+            <RadioButton
+              label="Option 2"
+              value="option2"
+              onChange={handleRadioChange}
+            />
+          </Group>
+
+          <Group y={800}>
+            <RadioButton
+              label="Option 3"
+              value="option3"
+              onChange={handleRadioChange}
+            />
+          </Group>
+        </Layer>
       </Stage>
     </div>
-=======
-import React from 'react';
-import { Stage, Layer, Rect, Text, Group } from 'react-konva';
-
-// const ContainedButton = ({ text, width, height, cornerRadius, backgroundColor, textColor }) => {
-//   return (
-//     <Group>
-//       <Rect
-//         width={width}
-//         height={height}
-//         fill={backgroundColor}
-//         cornerRadius={cornerRadius}
-//         shadowColor="rgba(0, 0, 0, 0.3)"
-//         shadowBlur={5}
-//         shadowOffset={{ x: 2, y: 2 }}
-//         shadowOpacity={0.8}
-//       />
-//       <Text
-//         text={text}
-//         width={width}
-//         height={height}
-//         align="center"
-//         verticalAlign="middle"
-//         fontSize={16}
-//         fill={textColor}
-//       />
-//     </Group>
-//   );
-// };
-
-import { ContainedButton } from '@repo/ui/button';
-
-const App = () => {
-  return (
-    <Stage width={5000} height={5000}>
-      <Layer>
-        <ContainedButton
-          text="Click me"
-          width={200}
-          height={50}
-          cornerRadius={5}
-          backgroundColor="#2196F3"
-          textColor="#fff"
-        />
-      </Layer>
-    </Stage>
-    // <div>
-    //     <Card title='hi' href='abc'   />
-    // </div>
->>>>>>> 21a50d2521db89c2fad3aab5d24fa230d1a54e51
   );
 };
 
 export default App;
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 21a50d2521db89c2fad3aab5d24fa230d1a54e51
