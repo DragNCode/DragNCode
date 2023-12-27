@@ -18,7 +18,7 @@ export const useHandleWChange = () => {
       if (style) {
         const updatedCardStyles = CardStyles.map((item) =>
           item.index === element.number
-            ? { ...item, width: icFlag ? width + 1 : width - 1 }
+            ? { ...item, width: icFlag ? width + 5 : width - 5 }
             : item
         );
 
@@ -26,7 +26,7 @@ export const useHandleWChange = () => {
       } else {
         const newStyle = {
           index: element.number,
-          width: icFlag ? width + 1 : width - 1,
+          width: icFlag ? width + 5 : width - 5,
           height: 250,
           color: "#13274F",
           cornerRadius: 2,

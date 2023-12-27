@@ -8,11 +8,15 @@ import { button } from "@/atoms/json1/button";
 import { card } from "@/atoms/json1/card";
 import { input } from "@/atoms/json1/input";
 import { Button, ButtonGroup, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { SampleCardProperties } from "../atoms/elements/SampleCardProperties";
 import { CardWidth } from "@/atoms/elements/Card/CardWidth";
 import { IcFlag } from "@/atoms/elements/Card/IcFlag";
 import { useHandleWChange } from "@/helperFunctions/handleWidthChange";
+import { CardHeight } from "@/atoms/elements/Card/CardHeight";
+import { HeightIcFlag } from "@/atoms/elements/Card/HeightIcFlag";
+import { useHandleHChange } from "@/helperFunctions/handleHeightChange";
+import { CornerIcFlag } from "@/atoms/elements/Card/CornerIcFlag";
+import { CornerRadius } from "@/atoms/elements/Card/CornerRadius";
+import { useHandleRadiusChange } from "@/helperFunctions/handleCornerRadiusChange";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -336,40 +340,121 @@ const Properties: React.FC = () => {
     }
   };
 
-  const [width, setWidth] = useRecoilState(CardWidth);
-  const [icFlag, setWidthIcFlag] = useRecoilState(IcFlag);
-
-  const handleWChange = useHandleWChange();
-
   return (
     <div className=" inline-block border w-96 ml-4 rounded-sm">
       <div>
         <Typography variant="h4" className=" ml-32">
           {element.element}
         </Typography>
+      </div>
+      <ChangeWidth />
+      <ChangeHeight />
+      <ChangeCornerRadius />
+    </div>
+  );
+};
 
+const ChangeWidth = () => {
+  const [width, setWidth] = useRecoilState(CardWidth);
+  const [icFlag, setWidthIcFlag] = useRecoilState(IcFlag);
+  const handleWChange = useHandleWChange();
+  return (
+    <div className="flex text-white mt-4">
+      <Typography variant="h6">Width: </Typography>
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
+      >
+        <Button
+          onClick={() => {
+            setWidth((prev) => prev - 5);
+            handleWChange();
+            setWidthIcFlag(false);
+          }}
+          className="bg-blue-600 ml-12"
+        >
+          -
+        </Button>
+        <Typography className="w-12 m-auto">{width}</Typography>
+        <Button
+          onClick={() => {
+            setWidth((prev) => prev + 5);
+            handleWChange();
+            setWidthIcFlag(true);
+          }}
+          className="bg-blue-600"
+        >
+          +
+        </Button>
+      </ButtonGroup>
+    </div>
+  );
+};
+
+const ChangeHeight = () => {
+  const [height, setHeight] = useRecoilState(CardHeight);
+  const [heightIc, setHeightIc] = useRecoilState(HeightIcFlag);
+  const handleHChange = useHandleHChange();
+  return (
+    <div className="flex text-white mt-4">
+      <Typography variant="h6">Height: </Typography>
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
+      >
+        <Button
+          onClick={() => {
+            setHeight((prev) => prev - 5);
+            handleHChange();
+            setHeightIc(false);
+          }}
+          className="bg-blue-600 ml-12"
+        >
+          -
+        </Button>
+        <Typography className="w-12 m-auto">{height}</Typography>
+        <Button
+          onClick={() => {
+            setHeight((prev) => prev + 5);
+            handleHChange();
+            setHeightIc(true);
+          }}
+          className="bg-blue-600"
+        >
+          +
+        </Button>
+      </ButtonGroup>
+    </div>
+  );
+};
+
+const ChangeCornerRadius = () => {
+    const [borderRadius, setBorderRadius] = useRecoilState(CornerRadius);
+    const [cornerIc, SetCornerIc] = useRecoilState(CornerIcFlag);
+    const handleRadiusChange = useHandleRadiusChange();
+    return (
         <div className="flex text-white mt-4">
-          <Typography variant="h6">Width: </Typography>
+          <Typography variant="h6">Corner Radius: </Typography>
           <ButtonGroup
             variant="contained"
             aria-label="outlined primary button group"
           >
             <Button
               onClick={() => {
-                setWidth((prev) => prev - 1);
-                handleWChange();
-                setWidthIcFlag(false)
+                setBorderRadius((prev) => prev - 1);
+                handleRadiusChange();
+                SetCornerIc(false);
               }}
               className="bg-blue-600 ml-12"
             >
               -
             </Button>
-            <Typography className="w-12 m-auto">{width}</Typography>
+            <Typography className="w-12 m-auto">{borderRadius}</Typography>
             <Button
               onClick={() => {
-                setWidth((prev) => prev + 1);
-                handleWChange();
-                setWidthIcFlag(true)
+                setBorderRadius((prev) => prev + 1);
+                handleRadiusChange();
+                SetCornerIc(true);
               }}
               className="bg-blue-600"
             >
@@ -377,9 +462,7 @@ const Properties: React.FC = () => {
             </Button>
           </ButtonGroup>
         </div>
-      </div>
-    </div>
-  );
-};
+      );
+}
 
 export default Properties;
