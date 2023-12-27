@@ -15,6 +15,7 @@ import { button } from "@/atoms/json1/button";
 import { card } from "@/atoms/json1/card";
 import { input } from "@/atoms/json1/input";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
+import { SampleCardProperties } from "../atoms/elements/SampleCardProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -233,6 +234,8 @@ const WhiteBoard: React.FC = () => {
     }
   };
 
+  const CardStyles = useRecoilValue(SampleCardProperties);
+
   return (
     <Stage
       height={stageSize.height}
@@ -364,27 +367,34 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.Card) {
+            const style = CardStyles.find((item) => item.index === number)
+              ? CardStyles.find((item) => item.index === number)
+              : CardStyles[0];
+
+            console.log( 'from whiteboard' ,style?.width);
+
             return (
-              <Group draggable>
+              <Group draggable onClick={() => handleButtonClick(number, word)} key={number}>
                 <Card
-                  width={300}
-                  height={250}
-                  color={"#13274F"}
-                  cornerRadius={2}
-                  headingColor={"#F0F8FF"}
-                  subTextColor={"#B2BEB5"}
-                  contentColor={"white"}
-                  buttonColor={"B2BEB5"}
-                  headingFont={25}
-                  subTextFont={15}
-                  contentFont={20}
-                  buttonFont={15}
-                  headingText={"Sample Card"}
-                  subText={"Subtext goes here"}
+                  width={style?.width ?? 300}
+                  height={style?.height ?? 250}
+                  color={style?.color ?? "#13274F"}
+                  cornerRadius={style?.cornerRadius ?? 2}
+                  headingColor={style?.headingColor ?? "#F0F8FF"}
+                  subTextColor={style?.subTextColor ?? "#B2BEB5"}
+                  contentColor={style?.contentColor ?? "white"}
+                  buttonColor={style?.buttonColor ?? "B2BEB5"}
+                  headingFont={style?.headingFont ?? 25}
+                  subTextFont={style?.subTextFont ?? 15}
+                  contentFont={style?.contentFont ?? 20}
+                  buttonFont={style?.buttonFont ?? 15}
+                  headingText={style?.headingText ?? "Sample Card"}
+                  subText={style?.subText ?? "Subtext goes here"}
                   content={
+                    style?.content ??
                     "This assumes that you are using these values as props in a React component. If you are "
                   }
-                  buttonText={"Click!"}
+                  buttonText={style?.buttonText ?? "Click!"}
                 />
               </Group>
             );
@@ -392,7 +402,7 @@ const WhiteBoard: React.FC = () => {
 
           if (word === elementsObject.CardWithImage) {
             return (
-              <Group draggable>
+              <Group draggable key={number} >
                 <CardWithImage
                   width={300}
                   height={400}
@@ -417,7 +427,7 @@ const WhiteBoard: React.FC = () => {
 
           if (word === elementsObject.SongCard) {
             return (
-              <Group draggable>
+              <Group draggable key={number}>
                 <SongCard
                   width={450}
                   height={200}
