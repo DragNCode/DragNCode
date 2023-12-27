@@ -4,6 +4,6 @@ export const selectedCategory = atom({
     key: 'selectedCategory',
     default: {
         index: 0,
-        value: ''
+        value: 'Elements'
     }
 })

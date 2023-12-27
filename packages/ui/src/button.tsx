@@ -34,6 +34,7 @@ export const CustomButton:React.FC<IButtonProps> = ({ label, onClick }) => {
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      draggable
     >
       <Rect
         width={100}
@@ -79,6 +80,7 @@ export const OutlineButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      draggable
     >
       <Rect
         width={100}
@@ -126,6 +128,7 @@ export const TextButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      draggable
     >
       <Text
         text={label}
