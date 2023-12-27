@@ -9,7 +9,12 @@ import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
 import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
+<<<<<<< HEAD
 import { CustomInput } from "@repo/ui/input";
+=======
+import { elementsToShow } from "@/atoms/elements/elementsToShow";
+import { countItemInArray } from "@/utils/Objects";
+>>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
 
 const SideBar = () => {
   const [value, setValue] = useRecoilState(selectedCategory);
@@ -62,6 +67,11 @@ const Selector: React.FC = () => {
 };
 
 const Elements: React.FC = () => {
+<<<<<<< HEAD
+=======
+  const [elements, setElemets] = useRecoilState(elementsToShow);
+
+>>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
   return (
     <div className="text-white flex flex-col gap-3 mt-5 overflow-x-auto">
       <div className="m-auto text-gray-400">Buttons</div>
@@ -134,7 +144,14 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto">
         <Stage height={420} width={1200}>
           <Layer>
-            <Group x={10} y={20}>
+            <Group
+              x={10}
+              y={20}
+              onClick={() => {
+                const count = countItemInArray(elements, "Card");
+                setElemets((prev) => [...prev, `Card${count + 1}`]);
+              }}
+            >
               <Card
                 width={300}
                 height={250}
@@ -151,12 +168,23 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
+<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
+=======
+                  "This assumes that you are using these values as props in a React component. If you are "
+>>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 buttonText={"Click!"}
               />
             </Group>
-            <Group x={330} y={20}>
+            <Group
+              x={330}
+              y={20}
+              onClick={() => {
+                const count = countItemInArray(elements, "CardWithImage");
+                setElemets((prev) => [...prev, `CardWithImage${count + 1}`]);
+              }}
+            >
               <CardWithImage
                 width={300}
                 height={400}
@@ -171,12 +199,24 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
+<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
+=======
+                  "This assumes that you are using these values as props in a React comp"
+>>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 iconColor={"#F0F8FF"}
               />
             </Group>
-            <Group x={650} y={20}>
+            <Group
+              x={650}
+              y={20}
+              onClick={() => {
+                const count = countItemInArray(elements, "SongCard");
+                console.log(count);
+                setElemets((prev) => [...prev, `SongCard${count + 1}`]);
+              }}
+            >
               <SongCard
                 width={450}
                 height={200}
@@ -191,7 +231,11 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
+<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
+=======
+                  "This assumes that you are using these values as props in a React component."
+>>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 iconColor={"#F0F8FF"}
               />
