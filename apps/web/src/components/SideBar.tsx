@@ -9,8 +9,10 @@ import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
 import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
-import { elementsToShow } from "@/atoms/elements/elementsToShow";
+import { CustomInput } from "@repo/ui/input";
 import { countItemInArray } from "@/utils/Objects";
+import { elementsToShow } from "@/atoms/elements/elementsToShow";
+
 
 const SideBar = () => {
   const [value, setValue] = useRecoilState(selectedCategory);
@@ -70,25 +72,59 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto">
         <Stage height={40} width={350}>
           <Layer>
-            <Group x={20} y={0}>
+            <Group x={20} y={0} onClick={() => {
+                const count = countItemInArray(elements, "CustomButton");
+                setElemets((prev) => [...prev, `CustomButton${count + 1}`]);
+              }}>
               <CustomButton label={"click"} onClick={() => console.log("hi")} />
             </Group>
-            <Group x={140} y={0}>
+            <Group x={140} y={0} onClick={() => {
+                const count = countItemInArray(elements, "OutlineButton");
+                setElemets((prev) => [...prev, `OutlineButton${count + 1}`]);
+              }}>
               <OutlineButton
                 label={"click"}
                 onClick={() => console.log("hi")}
               />
             </Group>
-            <Group x={260} y={0}>
+            <Group x={260} y={0} onClick={() => {
+                const count = countItemInArray(elements, "TextButton");
+                setElemets((prev) => [...prev, `TextButton${count + 1}`]);
+              }}>
               <TextButton label={"click"} onClick={() => console.log("hi")} />
             </Group>
           </Layer>
         </Stage>
       </div>
 
+      <div className="m-auto text-gray-400">Inputs</div>
+      <div className="overflow-x-auto">
+        <Stage height={40} width={450}>
+          <Layer>
+            <Group x={20} y={0} onClick={() => {
+                const count = countItemInArray(elements, "CustomInput");
+                setElemets((prev) => [...prev, `CustomInput${count + 1}`]);
+              }}>
+            <CustomInput
+            value={"input"}
+            placeholder="Outlined"
+            width={300}
+            height={50}
+            variant="outlined"
+            fontSize={16}
+          />
+            </Group>
+           
+          </Layer>
+        </Stage>
+      </div>
+
       <div className="m-auto text-gray-400">Checkbox</div>
       <div className="overflow-x-auto">
-        <Stage height={40} width={270}>
+        <Stage height={40} width={270} onClick={() => {
+                const count = countItemInArray(elements, "Checkbox");
+                setElemets((prev) => [...prev, `Checkbox${count + 1}`]);
+              }}>
           <Layer>
             <Group x={80} y={0}>
               <Checkbox label={"checkbox"} />
@@ -101,7 +137,10 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto m-auto">
         <Stage height={50} width={270}>
           <Layer>
-            <Group x={100} y={20}>
+            <Group x={100} y={20} onClick={() => {
+                const count = countItemInArray(elements, "RadioButton");
+                setElemets((prev) => [...prev, `RadioButton${count + 1}`]);
+              }}>
               <RadioButton
                 label="Label"
                 value="hi"
@@ -141,7 +180,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "This assumes that you are using these values as props in a React component. If you are "
+                  "Content Content Content Content Content Content Content Content Content Content Content Content "
                 }
                 buttonText={"Click!"}
               />
@@ -168,7 +207,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "This assumes that you are using these values as props in a React comp"
+                  "Content Content Content Content Content Content Content Content Content Content Content Content "
                 }
                 iconColor={"#F0F8FF"}
               />
@@ -196,7 +235,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "This assumes that you are using these values as props in a React component."
+                  "Content Content Content Content Content Content Content Content Content Content Content Content "
                 }
                 iconColor={"#F0F8FF"}
               />

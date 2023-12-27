@@ -9,7 +9,8 @@
     "./switch": "./src/switch.tsx",
     "./checkbox": "./src/checkbox.tsx",
     "./floatingActionButton": "./src/floatingActionButton.tsx",
-    "./radio": "./src/radio.tsx"
+    "./radio": "./src/radio.tsx",
+    "./input":"./src/input.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

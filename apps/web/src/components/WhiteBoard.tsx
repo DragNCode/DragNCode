@@ -16,6 +16,11 @@ import { card } from "@/atoms/json1/card";
 import { input } from "@/atoms/json1/input";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
 import { SampleCardProperties } from "../atoms/elements/SampleCardProperties";
+import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
+import { Checkbox } from "@repo/ui/checkbox";
+import { RadioButton, RadioGroup } from "@repo/ui/radio";
+import { CustomInput } from "@repo/ui/input";
+import { group } from "console";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -445,6 +450,72 @@ const WhiteBoard: React.FC = () => {
                     "This assumes that you are using these values as props in a React component."
                   }
                   iconColor={"#F0F8FF"}
+                />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.CustomButton) {
+            return (
+              <Group>
+                <CustomButton
+                  label={"click"}
+                  onClick={() => console.log("hi")}
+                />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.OutlineButton) {
+            return (
+              <Group>
+                <OutlineButton
+                  label={"click"}
+                  onClick={() => console.log("hi")}
+                />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.TextButton) {
+            return (
+              <Group>
+                <TextButton label={"click"} onClick={() => console.log("hi")} />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.CustomInput) {
+            return (
+              <Group draggable>
+                <CustomInput
+                  value={"input"}
+                  placeholder="Outlined"
+                  width={300}
+                  height={50}
+                  variant="outlined"
+                  fontSize={16}
+                />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.Checkbox) {
+            return (
+              <Group draggable>
+                <Checkbox label={"checkbox"} />
+              </Group>
+            );
+          }
+
+          if (word === elementsObject.RadioButton) {
+            return (
+              <Group draggable>
+                <RadioButton
+                  label="Label"
+                  value="hi"
+                  selectedValue="hi"
+                  onChange={() => console.log("object")}
                 />
               </Group>
             );
