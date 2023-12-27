@@ -6,6 +6,7 @@
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
+    "./switch": "./src/switch.tsx",
     "./checkbox": "./src/checkbox.tsx",
     "./floatingActionButton": "./src/floatingActionButton.tsx",
     "./radio": "./src/radio.tsx"
