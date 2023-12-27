@@ -41,6 +41,10 @@ export const elementsObject = {
     Button: 'Button',
     Card: 'Card',
     Input: 'Input',
+    SimpleCard: 'SimpleCard',
+    CardWithImage: 'CardWithImage',
+    SongCard: 'SongCard',
+    CustomButton: 'CustomButton'
 };
 
 export const SelectItems = [
