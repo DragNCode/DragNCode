@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Stage, Layer, Circle, Text, Group } from "react-konva";
+import React, { useState } from "react";
+import { Circle, Text, Group } from "react-konva";
 
 interface IFloatingActionButtonProps {
   icon: string;

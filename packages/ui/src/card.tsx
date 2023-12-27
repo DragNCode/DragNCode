@@ -87,7 +87,7 @@ export const Card: React.FC<ICardProps> = ({
           fill={buttonColor}
           cornerRadius={5}
           x={20}
-          y={height - 40}
+          y={200}
           shadowBlur={5}
         />
         <Text
@@ -96,7 +96,7 @@ export const Card: React.FC<ICardProps> = ({
           fontFamily="Arial"
           fill="white"
           x={33}
-          y={width - 32}
+          y={207}
         />
       </Group>
     </Group>
@@ -184,7 +184,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
           fontFamily="Arial"
           fill={subTextColor}
           x={70}
-          y={40}
+          y={50}
         />
 
         {/* Image */}
@@ -206,7 +206,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
         />
 
         {/* Sharing Icons */}
-        <Group x={20} y={height - 40}>
+        <Group x={20} y={height - 50}>
           {/* Share Icon */}
           <Rect
             width={30}

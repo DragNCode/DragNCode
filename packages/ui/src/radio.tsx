@@ -29,13 +29,13 @@ export const RadioButton: React.FC<IRadioButtonProps> = ({
   return (
     <Group onClick={handleButtonClick} cursor="pointer" draggable>
       <Circle
-        radius={14}
+        radius={8}
         fill={selectedValue === value ? "#1976D2" : "white"}
         stroke="white"
         strokeWidth={2}
       />
-      {selectedValue === value && <Circle radius={6} fill="white" />}
-      <Text text={label} x={30} y={-8} fontSize={16} fill="white" />
+      {selectedValue === value && <Circle radius={4} fill="white" />}
+      <Text text={label} x={20} y={-6} fontSize={16} fill="white" />
     </Group>
   );
 };

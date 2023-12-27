@@ -38,14 +38,14 @@ export const CustomButton:React.FC<IButtonProps> = ({ label, onClick }) => {
     >
       <Rect
         width={100}
-        height={50}
+        height={30}
         fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
-        cornerRadius={10}
+        cornerRadius={2}
       />
       <Text
         text={label}
         x={50 - label.length * 3}
-        y={25 - 10}
+        y={8}
         fontSize={16}
         fill="white"
       />
@@ -84,16 +84,16 @@ export const OutlineButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
     >
       <Rect
         width={100}
-        height={50}
+        height={30}
         fill="transparent"
         stroke={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
         strokeWidth={2}
-        cornerRadius={10}
+        cornerRadius={2}
       />
       <Text
         text={label}
         x={50 - label.length * 3}
-        y={25 - 10}
+        y={8}
         fontSize={16}
         fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
       />
