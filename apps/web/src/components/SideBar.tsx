@@ -9,16 +9,13 @@ import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
 import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
-<<<<<<< HEAD
 import { CustomInput } from "@repo/ui/input";
-=======
-import { elementsToShow } from "@/atoms/elements/elementsToShow";
 import { countItemInArray } from "@/utils/Objects";
->>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
+import { elementsToShow } from "@/atoms/elements/elementsToShow";
+
 
 const SideBar = () => {
   const [value, setValue] = useRecoilState(selectedCategory);
-  let inputValue;
 
   return (
     <>
@@ -67,27 +64,33 @@ const Selector: React.FC = () => {
 };
 
 const Elements: React.FC = () => {
-<<<<<<< HEAD
-=======
   const [elements, setElemets] = useRecoilState(elementsToShow);
 
->>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
   return (
     <div className="text-white flex flex-col gap-3 mt-5 overflow-x-auto">
       <div className="m-auto text-gray-400">Buttons</div>
       <div className="overflow-x-auto">
         <Stage height={40} width={350}>
           <Layer>
-            <Group x={20} y={0}>
+            <Group x={20} y={0} onClick={() => {
+                const count = countItemInArray(elements, "CustomButton");
+                setElemets((prev) => [...prev, `CustomButton${count + 1}`]);
+              }}>
               <CustomButton label={"click"} onClick={() => console.log("hi")} />
             </Group>
-            <Group x={140} y={0}>
+            <Group x={140} y={0} onClick={() => {
+                const count = countItemInArray(elements, "OutlineButton");
+                setElemets((prev) => [...prev, `OutlineButton${count + 1}`]);
+              }}>
               <OutlineButton
                 label={"click"}
                 onClick={() => console.log("hi")}
               />
             </Group>
-            <Group x={260} y={0}>
+            <Group x={260} y={0} onClick={() => {
+                const count = countItemInArray(elements, "TextButton");
+                setElemets((prev) => [...prev, `TextButton${count + 1}`]);
+              }}>
               <TextButton label={"click"} onClick={() => console.log("hi")} />
             </Group>
           </Layer>
@@ -98,7 +101,10 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto">
         <Stage height={40} width={450}>
           <Layer>
-            <Group x={20} y={0}>
+            <Group x={20} y={0} onClick={() => {
+                const count = countItemInArray(elements, "CustomInput");
+                setElemets((prev) => [...prev, `CustomInput${count + 1}`]);
+              }}>
             <CustomInput
             value={"input"}
             placeholder="Outlined"
@@ -115,7 +121,10 @@ const Elements: React.FC = () => {
 
       <div className="m-auto text-gray-400">Checkbox</div>
       <div className="overflow-x-auto">
-        <Stage height={40} width={270}>
+        <Stage height={40} width={270} onClick={() => {
+                const count = countItemInArray(elements, "Checkbox");
+                setElemets((prev) => [...prev, `Checkbox${count + 1}`]);
+              }}>
           <Layer>
             <Group x={80} y={0}>
               <Checkbox label={"checkbox"} />
@@ -128,7 +137,10 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto m-auto">
         <Stage height={50} width={270}>
           <Layer>
-            <Group x={100} y={20}>
+            <Group x={100} y={20} onClick={() => {
+                const count = countItemInArray(elements, "RadioButton");
+                setElemets((prev) => [...prev, `RadioButton${count + 1}`]);
+              }}>
               <RadioButton
                 label="Label"
                 value="hi"
@@ -168,11 +180,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
-=======
-                  "This assumes that you are using these values as props in a React component. If you are "
->>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 buttonText={"Click!"}
               />
@@ -199,11 +207,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
-=======
-                  "This assumes that you are using these values as props in a React comp"
->>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 iconColor={"#F0F8FF"}
               />
@@ -231,11 +235,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-<<<<<<< HEAD
                   "Content Content Content Content Content Content Content Content Content Content Content Content "
-=======
-                  "This assumes that you are using these values as props in a React component."
->>>>>>> ad6c0b4087f35b7017eee1ce86e0fe2b0db26f44
                 }
                 iconColor={"#F0F8FF"}
               />
