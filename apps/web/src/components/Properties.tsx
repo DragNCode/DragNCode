@@ -11,7 +11,15 @@ import { Typography } from "@mui/material";
 import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
 import { CustomButtonProperties } from "./ButtonsProperty/CustomButton/Properties";
 import { OutlineButtonProperties } from "./ButtonsProperty/OutlineButton/Properties";
+<<<<<<< HEAD
 import { CustomInputProperties } from "./InputProperties/Properties";
+=======
+import { ChangeCardProperties } from "./CardsProperties/Card/Properties";
+import { ChangeSongCardProperties } from "./CardsProperties/SongCard/Properties";
+import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
+import { ChangeCheckBoxProperty } from "./CheckBoxProperty/CheckBox/Properties";
+import { TextButtonProperties } from "./ButtonsProperty/TextButton/Properties";
+>>>>>>> 250f2e755a17d60c6b6af9cdeedaa4128a98e83b
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -371,11 +379,29 @@ const Properties: React.FC = () => {
         </div>
       )}
 
+<<<<<<< HEAD
       {element.element === elementsObject.CustomInput && (
         <div>
           <CustomInputProperties/>
         </div>
       )}
+=======
+      {
+        element.element === elementsObject.Checkbox && (
+          <div>
+            <ChangeCheckBoxProperty />
+          </div>
+        )
+      }
+
+      {
+        element.element === elementsObject.TextButton && (
+          <div>
+            <TextButtonProperties />
+          </div>
+        )
+      }
+>>>>>>> 250f2e755a17d60c6b6af9cdeedaa4128a98e83b
     </div>
   );
 };

@@ -171,29 +171,11 @@ const Elements: React.FC = () => {
         >
           <Layer>
             <Group x={80} y={0}>
-              <Checkbox label={"checkbox"} />
-            </Group>
-          </Layer>
-        </Stage>
-      </div>
-
-      <div className="m-auto text-gray-400">Radio Button</div>
-      <div className="overflow-x-auto m-auto">
-        <Stage height={50} width={270}>
-          <Layer>
-            <Group
-              x={100}
-              y={20}
-              onClick={() => {
-                const count = countItemInArray(elements, "RadioButton");
-                setElemets((prev) => [...prev, `RadioButton${count + 1}`]);
-              }}
-            >
-              <RadioButton
-                label="Label"
-                value="hi"
-                selectedValue="hi"
-                onChange={() => console.log("object")}
+              <Checkbox
+                width={20}
+                height={20}
+                cornerRadius={5}
+                label={"checkbox"}
               />
             </Group>
           </Layer>

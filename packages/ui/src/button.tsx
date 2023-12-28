@@ -13,6 +13,7 @@ interface IButtonProps {
   colorHovered?: string;
   cornerRadius?: number;
   textColor?: string;
+  padding?: number
 }
 
 export const CustomButton: React.FC<IButtonProps> = ({
@@ -137,6 +138,8 @@ export const TextButton: React.FC<IButtonProps> = ({
   color1,
   color2,
   colorHovered,
+  fontSize,
+  padding
 }) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
@@ -168,9 +171,9 @@ export const TextButton: React.FC<IButtonProps> = ({
     >
       <Text
         text={label}
-        fontSize={16}
+        fontSize={fontSize}
         fill={isClicked ? color1 : isHovered ? colorHovered : color2}
-        padding={10}
+        padding={padding}
       />
     </Group>
   );
