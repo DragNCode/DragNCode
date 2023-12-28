@@ -26,6 +26,7 @@ import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/Cus
 import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
 import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
 import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
+import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -250,6 +251,7 @@ const WhiteBoard: React.FC = () => {
   const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
   const SongCardStyle = useRecoilValue(SongCardProperties);
   const CheckBoxStyle = useRecoilValue(CheckBoxProerty);
+  const TextBtnStyle = useRecoilValue(TextBtnProperties);
 
   return (
     <Stage
@@ -549,9 +551,25 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.TextButton) {
+            const style = TextBtnStyle.find((item) => item.index === number)
+              ? TextBtnStyle.find((item) => item.index === number)
+              : TextBtnStyle[0];
+
             return (
-              <Group>
-                <TextButton label={"click"} onClick={() => console.log("hi")} />
+              <Group
+                draggable
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
+              >
+                <TextButton
+                  label={style?.label ?? "click"}
+                  onClick={() => console.log("hi")}
+                  fontSize={style?.fontSize ?? 16}
+                  padding={10}
+                  color1={style?.color1 ?? "#13274F"}
+                  color2={style?.color2 ?? "#F0F8FF"}
+                  colorHovered={style?.colorHovered ?? "#F0F8FF"}
+                />
               </Group>
             );
           }
@@ -572,20 +590,17 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.Checkbox) {
-
-            const style = CheckBoxStyle.find(
-              (item) => item.index === number
-            )
+            const style = CheckBoxStyle.find((item) => item.index === number)
               ? CheckBoxStyle.find((item) => item.index === number)
               : CheckBoxStyle[0];
 
             return (
-              <Group 
-                draggable 
+              <Group
+                draggable
                 key={number}
                 onClick={() => handleButtonClick(number, word)}
               >
-                <Checkbox 
+                <Checkbox
                   width={style?.width ?? 20}
                   height={style?.height ?? 20}
                   cornerRadius={style?.cornerRadius ?? 5}

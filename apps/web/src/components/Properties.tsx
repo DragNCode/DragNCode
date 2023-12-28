@@ -15,6 +15,7 @@ import { ChangeCardProperties } from "./CardsProperties/Card/Properties";
 import { ChangeSongCardProperties } from "./CardsProperties/SongCard/Properties";
 import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
 import { ChangeCheckBoxProperty } from "./CheckBoxProperty/CheckBox/Properties";
+import { TextButtonProperties } from "./ButtonsProperty/TextButton/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -378,6 +379,14 @@ const Properties: React.FC = () => {
         element.element === elementsObject.Checkbox && (
           <div>
             <ChangeCheckBoxProperty />
+          </div>
+        )
+      }
+
+      {
+        element.element === elementsObject.TextButton && (
+          <div>
+            <TextButtonProperties />
           </div>
         )
       }
