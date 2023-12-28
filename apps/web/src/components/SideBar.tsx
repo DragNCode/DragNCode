@@ -180,7 +180,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "Content Content Content Content Content Content Content Content Content Content Content Content "
+                  "This assumes that you are using these values as props in a React component. If you are "
                 }
                 buttonText={"Click!"}
               />
@@ -207,7 +207,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "Content Content Content Content Content Content Content Content Content Content Content Content "
+                  "This assumes that you are using these values as props in a React component. If you are "
                 }
                 iconColor={"#F0F8FF"}
               />
@@ -235,7 +235,7 @@ const Elements: React.FC = () => {
                 headingText={"Sample Card"}
                 subText={"Subtext goes here"}
                 content={
-                  "Content Content Content Content Content Content Content Content Content Content Content Content "
+                  "This assumes that you are using these values as props in a React component. If you are "
                 }
                 iconColor={"#F0F8FF"}
               />
