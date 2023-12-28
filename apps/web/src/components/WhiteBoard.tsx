@@ -380,6 +380,8 @@ const WhiteBoard: React.FC = () => {
               ? CardStyles.find((item) => item.index === number)
               : CardStyles[0];
 
+              console.log('from whie', style?.width);
+
             return (
               <Group
                 draggable
