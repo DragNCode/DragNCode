@@ -24,6 +24,7 @@ import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
 import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
+import { inputProperties } from "@/atoms/elements/Input/inputProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -246,6 +247,7 @@ const WhiteBoard: React.FC = () => {
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
   const CustomBtnStyle = useRecoilValue(customButtonProperties);
   const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
+  const CustomInputStyle = useRecoilValue(inputProperties)
 
   return (
     <Stage
@@ -553,15 +555,27 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.CustomInput) {
+            const inputStyle = CustomInputStyle.find(
+              (item) => item.index === number
+            )
+              ? CustomInputStyle.find((item) => item.index === number)
+              : CustomInputStyle[0];
             return (
-              <Group draggable>
+              <Group
+                draggable
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
+              >
                 <CustomInput
-                  value={"input"}
-                  placeholder="Outlined"
-                  width={300}
-                  height={50}
-                  variant="outlined"
-                  fontSize={16}
+                  value={inputStyle?.value ?? "click me"}
+                  width={inputStyle?.width ?? 100}
+                  height={inputStyle?.height ?? 30}
+                  cornerRadius={inputStyle?.cornerRadius ?? 2}
+                  color1={inputStyle?.color1 ?? "darkblue"}
+                  color2={inputStyle?.color2 ?? "lightblue"}
+                  fontSize={inputStyle?.fontSize ?? 16}
+                  placeholder={inputStyle?.placeholder ?? "hi"}
+                  variant={inputStyle?.variant ?? "outlined"}
                 />
               </Group>
             );

@@ -11,6 +11,7 @@ import { Typography } from "@mui/material";
 import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
 import { CustomButtonProperties } from "./ButtonsProperty/CustomButton/Properties";
 import { OutlineButtonProperties } from "./ButtonsProperty/OutlineButton/Properties";
+import { CustomInputProperties } from "./InputProperties/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -367,6 +368,12 @@ const Properties: React.FC = () => {
       {element.element === elementsObject.OutlineButton && (
         <div>
           <OutlineButtonProperties/>
+        </div>
+      )}
+
+      {element.element === elementsObject.CustomInput && (
+        <div>
+          <CustomInputProperties/>
         </div>
       )}
     </div>

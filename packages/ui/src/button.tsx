@@ -44,7 +44,7 @@ export const CustomButton: React.FC<IButtonProps> = ({
 
   const handleMouseUp = () => {
     setClicked(false);
-    onClick(label);
+    onClick && onClick(label);
   };
 
   return (

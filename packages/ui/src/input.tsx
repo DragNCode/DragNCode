@@ -8,7 +8,9 @@ interface ICustomInput {
   height:number;
   variant:string;
   fontSize:number;
-  cornerRadius:number
+  cornerRadius:number;
+  color1:string;
+  color2:string;
 }
 
 export const CustomInput:React.FC<ICustomInput> = ({
@@ -18,7 +20,9 @@ export const CustomInput:React.FC<ICustomInput> = ({
   height,
   variant,
   fontSize,
-  cornerRadius
+  cornerRadius,
+  color1,
+  color2
 }) => {
   const [isFocused, setFocused] = useState(false);
 
@@ -69,7 +73,7 @@ export const CustomInput:React.FC<ICustomInput> = ({
         x={variant === "outlined" ? 10 : 5}
         y={5}
         fontSize={fontSize}
-        fill={isFocused ? "black" : "#757575"}
+        fill={isFocused ? color1 : color2}
         width={width - (variant === "outlined" ? 20 : 10)}
         height={height - 10}
         verticalAlign="middle"
