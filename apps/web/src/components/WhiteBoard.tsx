@@ -24,6 +24,8 @@ import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
 import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
+import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
+import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -246,6 +248,8 @@ const WhiteBoard: React.FC = () => {
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
   const CustomBtnStyle = useRecoilValue(customButtonProperties);
   const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
+  const SongCardStyle = useRecoilValue(SongCardProperties);
+  const CheckBoxStyle = useRecoilValue(CheckBoxProerty);
 
   return (
     <Stage
@@ -568,21 +572,24 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.Checkbox) {
-            return (
-              <Group draggable>
-                <Checkbox label={"checkbox"} />
-              </Group>
-            );
-          }
 
-          if (word === elementsObject.RadioButton) {
+            const style = CheckBoxStyle.find(
+              (item) => item.index === number
+            )
+              ? CheckBoxStyle.find((item) => item.index === number)
+              : CheckBoxStyle[0];
+
             return (
-              <Group draggable>
-                <RadioButton
-                  label="Label"
-                  value="hi"
-                  selectedValue="hi"
-                  onChange={() => console.log("object")}
+              <Group 
+                draggable 
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
+              >
+                <Checkbox 
+                  width={style?.width ?? 20}
+                  height={style?.height ?? 20}
+                  cornerRadius={style?.cornerRadius ?? 5}
+                  label={style?.label ?? "Label"}
                 />
               </Group>
             );

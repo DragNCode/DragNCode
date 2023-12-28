@@ -11,6 +11,10 @@ import { Typography } from "@mui/material";
 import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
 import { CustomButtonProperties } from "./ButtonsProperty/CustomButton/Properties";
 import { OutlineButtonProperties } from "./ButtonsProperty/OutlineButton/Properties";
+import { ChangeCardProperties } from "./CardsProperties/Card/Properties";
+import { ChangeSongCardProperties } from "./CardsProperties/SongCard/Properties";
+import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
+import { ChangeCheckBoxProperty } from "./CheckBoxProperty/CheckBox/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -369,6 +373,14 @@ const Properties: React.FC = () => {
           <OutlineButtonProperties/>
         </div>
       )}
+
+      {
+        element.element === elementsObject.Checkbox && (
+          <div>
+            <ChangeCheckBoxProperty />
+          </div>
+        )
+      }
     </div>
   );
 };
