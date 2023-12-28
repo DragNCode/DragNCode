@@ -8,19 +8,14 @@ import { button } from "@/atoms/json1/button";
 import { card } from "@/atoms/json1/card";
 import { input } from "@/atoms/json1/input";
 import { Typography } from "@mui/material";
-import { ChangeWidth } from "./CardsProperties/Card/ChangeWidth";
-import { ChangeHeight } from "./CardsProperties/Card/ChangeHeight";
-import { ChangeCornerRadius } from "./CardsProperties/Card/ChangeCornerRadius";
-import { ChangeCardContent } from "./CardsProperties/Card/ChangeCardContent";
-import { ChangeCardHeading } from "./CardsProperties/Card/ChangeCardHeading";
-import { ChangeCardSubtext } from "./CardsProperties/Card/ChangeSubText";
-import { ChangeCardContentFont } from "./CardsProperties/Card/ChangeCardContentFont";
-import { ChangeCardHeadingFont } from "./CardsProperties/Card/ChangeCardHeadingFont";
-import { ChangeCardSubTextFont } from "./CardsProperties/Card/ChangeCardSubTextFont";
-import { ChangeCardButtonText } from "./CardsProperties/Card/ChangeCardButtonText";
-import { ChangeCardButtonFont } from "./CardsProperties/Card/ChangeCardButtonFont";
 import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
+<<<<<<< HEAD
 import { CustomButtonProperties } from "./ButtonsProperty/CustomButton/Properties";
+=======
+import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
+import { ChangeSongCardProperties } from "./CardsProperties/SongCard/Properties";
+import { ChangeCardProperties } from "./CardsProperties/Card/Properties";
+>>>>>>> 219ede307ba3f40a1feed47d41f23cbebe65be04
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -354,21 +349,15 @@ const Properties: React.FC = () => {
 
       {element.element === elementsObject.Card ? (
         <div>
-          <ChangeWidth />
-          <ChangeHeight />
-          <ChangeCornerRadius />
-          <ChangeCardContent />
-          <ChangeCardHeading />
-          <ChangeCardSubtext />
-          <ChangeCardContentFont />
-          <ChangeCardHeadingFont />
-          <ChangeCardSubTextFont />
-          <ChangeCardButtonText />
-          <ChangeCardButtonFont />
+          <ChangeCardProperties />
         </div>
       ) : element.element === elementsObject.CardWithImage ? (
         <div>
           <CardImageProperties />
+        </div>
+      ) : element.element === elementsObject.SongCard ? (
+        <div>
+          <ChangeSongCardProperties />
         </div>
       ) : (
         <div></div>
