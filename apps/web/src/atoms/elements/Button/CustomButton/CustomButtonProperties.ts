@@ -1,8 +1,9 @@
 import { atom } from "recoil";
 
-export const label = atom({
+export const customButtonProperties = atom({
     key:'label',
-    default:{
+    default:[{
+        index:0,
         label:"click me",
         width:100,
         height:30,
@@ -12,5 +13,5 @@ export const label = atom({
         colorHovered:"blue",
         textColor:"white",
         fontSize:16
-    }
+    },]
 })

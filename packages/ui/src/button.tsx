@@ -3,11 +3,30 @@ import React, { useState } from "react";
 import { Group, Rect, Text } from "react-konva";
 
 interface IButtonProps {
-  label:string,
-  onClick: Function
+  label: string;
+  onClick: Function;
+  width:number;
+  height:number;
+  fontSize:number;
+  color1:string;
+  color2:string;
+  colorHovered:string;
+  cornerRadius:number;
+  textColor:string;
 }
 
-export const CustomButton:React.FC<IButtonProps> = ({ label, onClick }) => {
+export const CustomButton: React.FC<IButtonProps> = ({
+  label,
+  onClick,
+  width,
+  height,
+  fontSize,
+  color1,
+  color2,
+  colorHovered,
+  cornerRadius,
+  textColor
+}) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
 
@@ -37,23 +56,23 @@ export const CustomButton:React.FC<IButtonProps> = ({ label, onClick }) => {
       draggable
     >
       <Rect
-        width={100}
-        height={30}
-        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
-        cornerRadius={2}
+        width={width}
+        height={height}
+        fill={isClicked ? color1 : isHovered ? colorHovered : color2}
+        cornerRadius={cornerRadius}
       />
       <Text
         text={label}
         x={50 - label.length * 3}
         y={8}
-        fontSize={16}
-        fill="white"
+        fontSize={fontSize}
+        fill={textColor}
       />
     </Group>
   );
 };
 
-export const OutlineButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
+export const OutlineButton: React.FC<IButtonProps> = ({ label, onClick }) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
 
@@ -101,7 +120,7 @@ export const OutlineButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
   );
 };
 
-export const TextButton:React.FC<IButtonProps>  = ({ label, onClick }) => {
+export const TextButton: React.FC<IButtonProps> = ({ label, onClick }) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
 

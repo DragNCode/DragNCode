@@ -22,6 +22,7 @@ import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { CustomInput } from "@repo/ui/input";
 import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
+import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -242,6 +243,7 @@ const WhiteBoard: React.FC = () => {
 
   const CardStyles = useRecoilValue(SampleCardProperties);
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
+  const CustomBtnStyle = useRecoilState(customButtonProperties);
 
   return (
     <Stage
@@ -414,7 +416,7 @@ const WhiteBoard: React.FC = () => {
               ? CardImageStyle.find((item) => item.index === number)
               : CardImageStyle[0];
 
-            console.log('from whiteboard', style?.width);
+            console.log("from whiteboard", style?.width);
 
             return (
               <Group
@@ -471,11 +473,30 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.CustomButton) {
+        
+            const btnStyle = CustomBtnStyle.find((item) => item.index === number)
+            ? CustomBtnStyle.find((item) => item.index === number)
+            : CustomBtnStyle[0];
+
+            console.log(btnStyle, "btnstyle");
+            
             return (
-              <Group>
+              <Group
+              draggable
+              key={number}
+              onClick={() => handleButtonClick(number, word)}
+              >
                 <CustomButton
                   label={"click"}
                   onClick={() => console.log("hi")}
+                  width={100}
+                  height={btnStyle[0]?.height}
+                  cornerRadius={2}
+                  color1="darkblue"
+                  color2="lightblue"
+                  colorHovered="blue"
+                  textColor="white"
+                  fontSize={16}
                 />
               </Group>
             );
