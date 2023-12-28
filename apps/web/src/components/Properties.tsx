@@ -19,6 +19,7 @@ import { ChangeCardHeadingFont } from "./CardsProperties/Card/ChangeCardHeadingF
 import { ChangeCardSubTextFont } from "./CardsProperties/Card/ChangeCardSubTextFont";
 import { ChangeCardButtonText } from "./CardsProperties/Card/ChangeCardButtonText";
 import { ChangeCardButtonFont } from "./CardsProperties/Card/ChangeCardButtonFont";
+import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -363,6 +364,10 @@ const Properties: React.FC = () => {
           <ChangeCardSubTextFont />
           <ChangeCardButtonText />
           <ChangeCardButtonFont />
+        </div>
+      ) : element.element === elementsObject.CardWithImage ? (
+        <div>
+          <CardImageProperties />
         </div>
       ) : (
         <div></div>

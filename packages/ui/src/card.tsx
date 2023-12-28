@@ -118,6 +118,7 @@ interface ICardWithImageProps {
   subText: string;
   content: string;
   iconColor: string;
+  imageUrl?: string;
 }
 
 export const CardWithImage: React.FC<ICardWithImageProps> = ({
@@ -135,12 +136,13 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
   subTextFont,
   contentFont,
   content,
+  imageUrl
 }) => {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = "https://via.placeholder.com/250x150";
+    img.src = imageUrl ?? "https://via.placeholder.com/250x150";
     img.onload = () => {
       //@ts-ignore
       setImage(img);
