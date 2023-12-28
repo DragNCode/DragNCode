@@ -14,6 +14,12 @@ import { ChangeCornerRadius } from "./CardsProperties/Card/ChangeCornerRadius";
 import { ChangeCardContent } from "./CardsProperties/Card/ChangeCardContent";
 import { ChangeCardHeading } from "./CardsProperties/Card/ChangeCardHeading";
 import { ChangeCardSubtext } from "./CardsProperties/Card/ChangeSubText";
+import { ChangeCardContentFont } from "./CardsProperties/Card/ChangeCardContentFont";
+import { ChangeCardHeadingFont } from "./CardsProperties/Card/ChangeCardHeadingFont";
+import { ChangeCardSubTextFont } from "./CardsProperties/Card/ChangeCardSubTextFont";
+import { ChangeCardButtonText } from "./CardsProperties/Card/ChangeCardButtonText";
+import { ChangeCardButtonFont } from "./CardsProperties/Card/ChangeCardButtonFont";
+import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -353,6 +359,15 @@ const Properties: React.FC = () => {
           <ChangeCardContent />
           <ChangeCardHeading />
           <ChangeCardSubtext />
+          <ChangeCardContentFont />
+          <ChangeCardHeadingFont />
+          <ChangeCardSubTextFont />
+          <ChangeCardButtonText />
+          <ChangeCardButtonFont />
+        </div>
+      ) : element.element === elementsObject.CardWithImage ? (
+        <div>
+          <CardImageProperties />
         </div>
       ) : (
         <div></div>
