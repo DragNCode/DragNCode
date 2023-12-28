@@ -13,7 +13,6 @@ import { CustomInput } from "@repo/ui/input";
 import { countItemInArray } from "@/utils/Objects";
 import { elementsToShow } from "@/atoms/elements/elementsToShow";
 
-
 const SideBar = () => {
   const [value, setValue] = useRecoilState(selectedCategory);
 
@@ -72,26 +71,64 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto">
         <Stage height={40} width={350}>
           <Layer>
-            <Group x={20} y={0} onClick={() => {
+            <Group
+              x={20}
+              y={0}
+              onClick={() => {
                 const count = countItemInArray(elements, "CustomButton");
                 setElemets((prev) => [...prev, `CustomButton${count + 1}`]);
-              }}>
-              <CustomButton label={"click"} onClick={() => console.log("hi")} />
+              }}
+            >
+              <CustomButton
+                label={"click"}
+                onClick={() => console.log("hi")}
+                width={100}
+                height={30}
+                cornerRadius={2}
+                color1="darkblue"
+                color2="lightblue"
+                colorHovered="blue"
+                textColor="white"
+                fontSize={16}
+              />
             </Group>
-            <Group x={140} y={0} onClick={() => {
+            <Group
+              x={140}
+              y={0}
+              onClick={() => {
                 const count = countItemInArray(elements, "OutlineButton");
                 setElemets((prev) => [...prev, `OutlineButton${count + 1}`]);
-              }}>
+              }}
+            >
               <OutlineButton
                 label={"click"}
                 onClick={() => console.log("hi")}
+                width={100}
+                height={30}
+                cornerRadius={2}
+                color1="darkblue"
+                color2="lightblue"
+                colorHovered="blue"
+                textColor="white"
+                fontSize={16}
               />
             </Group>
-            <Group x={260} y={0} onClick={() => {
+            <Group
+              x={260}
+              y={0}
+              onClick={() => {
                 const count = countItemInArray(elements, "TextButton");
                 setElemets((prev) => [...prev, `TextButton${count + 1}`]);
-              }}>
-              <TextButton label={"click"} onClick={() => console.log("hi")} />
+              }}
+            >
+              <TextButton
+                label={"click"}
+                onClick={() => console.log("hi")}
+                fontSize={16}
+                color1="darkblue"
+                color2="lightblue"
+                colorHovered="blue"
+              />
             </Group>
           </Layer>
         </Stage>
@@ -101,30 +138,37 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto">
         <Stage height={40} width={450}>
           <Layer>
-            <Group x={20} y={0} onClick={() => {
+            <Group
+              x={20}
+              y={0}
+              onClick={() => {
                 const count = countItemInArray(elements, "CustomInput");
                 setElemets((prev) => [...prev, `CustomInput${count + 1}`]);
-              }}>
-            <CustomInput
-            value={"input"}
-            placeholder="Outlined"
-            width={300}
-            height={50}
-            variant="outlined"
-            fontSize={16}
-          />
+              }}
+            >
+              <CustomInput
+                value={"input"}
+                placeholder="Outlined"
+                width={300}
+                height={50}
+                variant="outlined"
+                fontSize={16}
+              />
             </Group>
-           
           </Layer>
         </Stage>
       </div>
 
       <div className="m-auto text-gray-400">Checkbox</div>
       <div className="overflow-x-auto">
-        <Stage height={40} width={270} onClick={() => {
-                const count = countItemInArray(elements, "Checkbox");
-                setElemets((prev) => [...prev, `Checkbox${count + 1}`]);
-              }}>
+        <Stage
+          height={40}
+          width={270}
+          onClick={() => {
+            const count = countItemInArray(elements, "Checkbox");
+            setElemets((prev) => [...prev, `Checkbox${count + 1}`]);
+          }}
+        >
           <Layer>
             <Group x={80} y={0}>
               <Checkbox label={"checkbox"} />
@@ -137,10 +181,14 @@ const Elements: React.FC = () => {
       <div className="overflow-x-auto m-auto">
         <Stage height={50} width={270}>
           <Layer>
-            <Group x={100} y={20} onClick={() => {
+            <Group
+              x={100}
+              y={20}
+              onClick={() => {
                 const count = countItemInArray(elements, "RadioButton");
                 setElemets((prev) => [...prev, `RadioButton${count + 1}`]);
-              }}>
+              }}
+            >
               <RadioButton
                 label="Label"
                 value="hi"
