@@ -22,6 +22,7 @@ import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { CustomInput } from "@repo/ui/input";
 import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
+import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -242,6 +243,7 @@ const WhiteBoard: React.FC = () => {
 
   const CardStyles = useRecoilValue(SampleCardProperties);
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
+  const SongCardStyle = useRecoilValue(SongCardProperties);
 
   return (
     <Stage
@@ -414,8 +416,6 @@ const WhiteBoard: React.FC = () => {
               ? CardImageStyle.find((item) => item.index === number)
               : CardImageStyle[0];
 
-            console.log('from whiteboard', style?.width);
-
             return (
               <Group
                 draggable
@@ -446,25 +446,34 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.SongCard) {
+            const style = SongCardStyle.find((item) => item.index === number)
+              ? SongCardStyle.find((item) => item.index === number)
+              : SongCardStyle[0];
+
             return (
-              <Group draggable key={number}>
+              <Group
+                draggable
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
+              >
                 <SongCard
-                  width={450}
-                  height={200}
-                  color={"#13274F"}
-                  cornerRadius={2}
-                  headingColor={"#F0F8FF"}
-                  subTextColor={"#B2BEB5"}
-                  contentColor={"white"}
-                  headingFont={25}
-                  subTextFont={15}
-                  contentFont={20}
-                  headingText={"Sample Card"}
-                  subText={"Subtext goes here"}
+                  width={style?.width ?? 450}
+                  height={style?.height ?? 200}
+                  color={style?.color ?? "#13274F"}
+                  cornerRadius={style?.cornerRadius ?? 2}
+                  headingColor={style?.headingColor ?? "#F0F8FF"}
+                  subTextColor={style?.subTextColor ?? "#B2BEB5"}
+                  contentColor={style?.contentColor ?? "white"}
+                  headingFont={style?.headingFont ?? 25}
+                  subTextFont={style?.subTextFont ?? 15}
+                  contentFont={style?.contentFont ?? 20}
+                  headingText={style?.headingText ?? "Sample Card"}
+                  subText={style?.subText ?? "Subtext goes here"}
                   content={
+                    style?.content ??
                     "This assumes that you are using these values as props in a React component."
                   }
-                  iconColor={"#F0F8FF"}
+                  iconColor={style?.iconColor ?? "#F0F8FF"}
                 />
               </Group>
             );
