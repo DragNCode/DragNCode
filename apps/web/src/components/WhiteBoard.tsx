@@ -18,19 +18,14 @@ import { Card, CardWithImage, SongCard } from "@repo/ui/card";
 import { SampleCardProperties } from "../atoms/elements/SampleCardProperties";
 import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
-import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { CustomInput } from "@repo/ui/input";
-import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
 import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
-<<<<<<< HEAD
 import { inputProperties } from "@/atoms/elements/Input/inputProperties";
-=======
 import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
 import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
 import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnProperties";
->>>>>>> 250f2e755a17d60c6b6af9cdeedaa4128a98e83b
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -253,13 +248,10 @@ const WhiteBoard: React.FC = () => {
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
   const CustomBtnStyle = useRecoilValue(customButtonProperties);
   const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
-<<<<<<< HEAD
   const CustomInputStyle = useRecoilValue(inputProperties)
-=======
   const SongCardStyle = useRecoilValue(SongCardProperties);
   const CheckBoxStyle = useRecoilValue(CheckBoxProerty);
   const TextBtnStyle = useRecoilValue(TextBtnProperties);
->>>>>>> 250f2e755a17d60c6b6af9cdeedaa4128a98e83b
 
   return (
     <Stage

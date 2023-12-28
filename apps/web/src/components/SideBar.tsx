@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { Box, Tabs, Tab } from "@mui/material";
-import { SelectItems } from "@/types/type";
+import { SelectItems, elements } from "@/types/type";
 import { useRecoilState } from "recoil";
 import { selectedCategory } from "@/atoms/Sidebar/selectedCategory";
 import { Group, Layer, Stage } from "react-konva";
 
 import { CustomButton, TextButton, OutlineButton } from "@repo/ui/button";
 import { Checkbox } from "@repo/ui/checkbox";
-import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { Card, CardWithImage, SongCard } from "@repo/ui/card";
 import { CustomInput } from "@repo/ui/input";
 import { countItemInArray } from "@/utils/Objects";
@@ -40,8 +39,8 @@ const Selector: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(value);
-  }, [value]);
+    console.log(elements);
+  }, [elements]);
 
   return (
     <div>
@@ -153,6 +152,9 @@ const Elements: React.FC = () => {
                 height={50}
                 variant="outlined"
                 fontSize={16}
+                cornerRadius={0}
+                color1={""}
+                color2={""}
               />
             </Group>
           </Layer>
