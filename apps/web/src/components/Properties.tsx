@@ -9,13 +9,8 @@ import { card } from "@/atoms/json1/card";
 import { input } from "@/atoms/json1/input";
 import { Typography } from "@mui/material";
 import { CardImageProperties } from "./CardsProperties/CardWithImage/Properties";
-<<<<<<< HEAD
 import { CustomButtonProperties } from "./ButtonsProperty/CustomButton/Properties";
-=======
-import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
-import { ChangeSongCardProperties } from "./CardsProperties/SongCard/Properties";
-import { ChangeCardProperties } from "./CardsProperties/Card/Properties";
->>>>>>> 219ede307ba3f40a1feed47d41f23cbebe65be04
+import { OutlineButtonProperties } from "./ButtonsProperty/OutlineButton/Properties";
 
 const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
@@ -366,6 +361,12 @@ const Properties: React.FC = () => {
       {element.element === elementsObject.CustomButton && (
         <div>
           <CustomButtonProperties/>
+        </div>
+      )}
+
+      {element.element === elementsObject.OutlineButton && (
+        <div>
+          <OutlineButtonProperties/>
         </div>
       )}
     </div>

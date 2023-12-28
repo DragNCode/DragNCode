@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import { Stage, Layer, Rect, Text } from "react-konva";
 
-export const CustomInput = ({
+interface ICustomInput {
+  value:string;
+  placeholder:string;
+  width:number;
+  height:number;
+  variant:string;
+  fontSize:number;
+  cornerRadius:number
+}
+
+export const CustomInput:React.FC<ICustomInput> = ({
   value,
   placeholder,
   width,
   height,
   variant,
   fontSize,
+  cornerRadius
 }) => {
   const [isFocused, setFocused] = useState(false);
 
@@ -33,7 +44,7 @@ export const CustomInput = ({
             fill={isFocused ? "#E3F2FD" : "white"}
             stroke="#90CAF9"
             strokeWidth={2}
-            cornerRadius={5}
+            cornerRadius={cornerRadius}
           />
         );
       case "filled":

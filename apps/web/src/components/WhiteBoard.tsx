@@ -22,11 +22,8 @@ import { RadioButton, RadioGroup } from "@repo/ui/radio";
 import { CustomInput } from "@repo/ui/input";
 import { group } from "console";
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
-<<<<<<< HEAD
 import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
-=======
-import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
->>>>>>> 219ede307ba3f40a1feed47d41f23cbebe65be04
+import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -247,11 +244,8 @@ const WhiteBoard: React.FC = () => {
 
   const CardStyles = useRecoilValue(SampleCardProperties);
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
-<<<<<<< HEAD
-  const CustomBtnStyle = useRecoilState(customButtonProperties);
-=======
-  const SongCardStyle = useRecoilValue(SongCardProperties);
->>>>>>> 219ede307ba3f40a1feed47d41f23cbebe65be04
+  const CustomBtnStyle = useRecoilValue(customButtonProperties);
+  const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
 
   return (
     <Stage
@@ -388,7 +382,7 @@ const WhiteBoard: React.FC = () => {
               ? CardStyles.find((item) => item.index === number)
               : CardStyles[0];
 
-              console.log('from whie', style?.width);
+            console.log("from whie", style?.width);
 
             return (
               <Group
@@ -426,11 +420,8 @@ const WhiteBoard: React.FC = () => {
               ? CardImageStyle.find((item) => item.index === number)
               : CardImageStyle[0];
 
-<<<<<<< HEAD
             console.log("from whiteboard", style?.width);
 
-=======
->>>>>>> 219ede307ba3f40a1feed47d41f23cbebe65be04
             return (
               <Group
                 draggable
@@ -495,41 +486,59 @@ const WhiteBoard: React.FC = () => {
           }
 
           if (word === elementsObject.CustomButton) {
-        
-            const btnStyle = CustomBtnStyle.find((item) => item.index === number)
-            ? CustomBtnStyle.find((item) => item.index === number)
-            : CustomBtnStyle[0];
+            const btnStyle = CustomBtnStyle.find(
+              (item) => item.index === number
+            )
+              ? CustomBtnStyle.find((item) => item.index === number)
+              : CustomBtnStyle[0];
 
             console.log(btnStyle, "btnstyle");
-            
+
             return (
               <Group
-              draggable
-              key={number}
-              onClick={() => handleButtonClick(number, word)}
+                draggable
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
               >
                 <CustomButton
-                  label={"click"}
+                  label={btnStyle?.label ?? "click me"}
                   onClick={() => console.log("hi")}
-                  width={100}
-                  height={btnStyle[0]?.height}
-                  cornerRadius={2}
-                  color1="darkblue"
-                  color2="lightblue"
-                  colorHovered="blue"
-                  textColor="white"
-                  fontSize={16}
+                  width={btnStyle?.width ?? 100}
+                  height={btnStyle?.height ?? 30}
+                  cornerRadius={btnStyle?.cornerRadius ?? 2}
+                  color1={btnStyle?.color1 ?? "darkblue"}
+                  color2={btnStyle?.color2 ?? "lightblue"}
+                  colorHovered={btnStyle?.colorHovered ?? "blue"}
+                  textColor={btnStyle?.textColor ?? "white"}
+                  fontSize={btnStyle?.fontSize ?? 16}
                 />
               </Group>
             );
           }
 
           if (word === elementsObject.OutlineButton) {
+            const btnStyle = outlineBtnStyle.find(
+              (item) => item.index === number
+            )
+              ? CustomBtnStyle.find((item) => item.index === number)
+              : CustomBtnStyle[0];
             return (
-              <Group>
+              <Group
+                draggable
+                key={number}
+                onClick={() => handleButtonClick(number, word)}
+              >
                 <OutlineButton
-                  label={"click"}
+                  label={btnStyle?.label ?? "click me"}
                   onClick={() => console.log("hi")}
+                  width={btnStyle?.width ?? 100}
+                  height={btnStyle?.height ?? 30}
+                  cornerRadius={btnStyle?.cornerRadius ?? 2}
+                  color1={btnStyle?.color1 ?? "darkblue"}
+                  color2={btnStyle?.color2 ?? "lightblue"}
+                  colorHovered={btnStyle?.colorHovered ?? "blue"}
+                  textColor={btnStyle?.textColor ?? "white"}
+                  fontSize={btnStyle?.fontSize ?? 16}
                 />
               </Group>
             );

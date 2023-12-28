@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import { Group, Rect, Text } from "react-konva";
 
 interface IButtonProps {
-  label: string;
-  onClick: Function;
-  width:number;
-  height:number;
-  fontSize:number;
-  color1:string;
-  color2:string;
-  colorHovered:string;
-  cornerRadius:number;
-  textColor:string;
+  label?: string;
+  onClick?: Function;
+  width?: number;
+  height?: number;
+  fontSize?: number;
+  color1?: string;
+  color2?: string;
+  colorHovered?: string;
+  cornerRadius?: number;
+  textColor?: string;
 }
 
 export const CustomButton: React.FC<IButtonProps> = ({
@@ -25,7 +25,7 @@ export const CustomButton: React.FC<IButtonProps> = ({
   color2,
   colorHovered,
   cornerRadius,
-  textColor
+  textColor,
 }) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
@@ -72,7 +72,18 @@ export const CustomButton: React.FC<IButtonProps> = ({
   );
 };
 
-export const OutlineButton: React.FC<IButtonProps> = ({ label, onClick }) => {
+export const OutlineButton: React.FC<IButtonProps> = ({
+  label,
+  onClick,
+  width,
+  height,
+  fontSize,
+  color1,
+  color2,
+  colorHovered,
+  cornerRadius,
+  textColor,
+}) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
 
@@ -102,25 +113,31 @@ export const OutlineButton: React.FC<IButtonProps> = ({ label, onClick }) => {
       draggable
     >
       <Rect
-        width={100}
-        height={30}
+        width={width}
+        height={height}
         fill="transparent"
-        stroke={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        stroke={isClicked ? color1 : isHovered ? colorHovered : color2}
         strokeWidth={2}
-        cornerRadius={2}
+        cornerRadius={cornerRadius}
       />
       <Text
         text={label}
         x={50 - label.length * 3}
         y={8}
-        fontSize={16}
-        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        fontSize={fontSize}
+        fill={isClicked ? color1 : isHovered ? colorHovered : color2}
       />
     </Group>
   );
 };
 
-export const TextButton: React.FC<IButtonProps> = ({ label, onClick }) => {
+export const TextButton: React.FC<IButtonProps> = ({
+  label,
+  onClick,
+  color1,
+  color2,
+  colorHovered,
+}) => {
   const [isHovered, setHovered] = useState(false);
   const [isClicked, setClicked] = useState(false);
 
@@ -152,7 +169,7 @@ export const TextButton: React.FC<IButtonProps> = ({ label, onClick }) => {
       <Text
         text={label}
         fontSize={16}
-        fill={isClicked ? "darkblue" : isHovered ? "blue" : "lightblue"}
+        fill={isClicked ? color1 : isHovered ? colorHovered : color2}
         padding={10}
       />
     </Group>
