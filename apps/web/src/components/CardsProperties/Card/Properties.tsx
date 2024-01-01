@@ -1,6 +1,6 @@
 import { SampleCardProperties } from "@/atoms/elements/SampleCardProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
-import { Typography, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
@@ -29,12 +29,31 @@ export const ChangeCardProperties: React.FC = () => {
     { title: "buttonText", value: "Click!", type: "string" },
   ];
 
+  const transformedObject = {
+    width: "Width",
+    height: "Height",
+    color: "Color",
+    cornerRadius: "Corner Radius",
+    headingColor: "Heading Color",
+    subTextColor: "Subtext Color",
+    contentColor: "Content Color",
+    buttonColor: "Button Color",
+    headingFont: "Heading Font",
+    subTextFont: "Subtext Font",
+    contentFont: "Content Font",
+    buttonFont: "Button Font",
+    headingText: "Heading Text",
+    subText: "Subtext",
+    content: "Content",
+    buttonText: "Button Text",
+  };
+
   const { number } = useRecoilValue(currentSelectedElement);
   const [Card, setCard] = useRecoilState(SampleCardProperties);
 
   useEffect(() => {
     console.log(Card);
-  }, [Card])
+  }, [Card]);
 
   const handlePropertyChange = (title: string, value: number | string) => {
     setCard((prev) => {
@@ -75,12 +94,15 @@ export const ChangeCardProperties: React.FC = () => {
     <div>
       {properties.map((property) => (
         <div key={property.title} className="flex text-white mt-4">
-          <label>{property.title}</label>
-          <TextField
+          <label className="">
+            {(transformedObject as any)[property.title]}
+          </label>
+          {/* <TextField
             id={property.title}
             label="Standard"
             variant="standard"
             className="bg-white text-black ml-2"
+            sx={{ height: "20px" }}
             onChange={(e) => {
               const value = e.target.value;
               handlePropertyChange(
@@ -93,13 +115,40 @@ export const ChangeCardProperties: React.FC = () => {
               );
             }}
             value={
-              Card
-                .filter((card) => card.index === number)
-                .map((card) => (card as any)[property.title])[0]
+              Card.filter((card) => card.index === number).map(
+                (card) => (card as any)[property.title]
+              )[0]
             }
+          /> */}
+          <TextField
+            id={property.title}
+            label="Standard"
+            variant="standard"
+            onChange={(e) => {
+              const value = e.target.value;
+              handlePropertyChange(
+                property.title,
+                property.type === "number"
+                  ? value === ""
+                    ? 0
+                    : parseFloat(value)
+                  : value
+              );
+            }}
+            value={
+              Card.filter((card) => card.index === number).map(
+                (card) => (card as any)[property.title]
+              )[0]
+            }
+            className=" text-white"
           />
         </div>
       ))}
     </div>
   );
+};
+
+const Properties = {
+  width: "Width",
+  height: "Height",
 };
