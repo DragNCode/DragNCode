@@ -22,7 +22,7 @@ const Properties: React.FC = () => {
   const element = useRecoilValue(currentSelectedElement);
 
   return (
-    <div className=" inline-block border w-96 ml-4 rounded-sm">
+    <div className="inline-block border-t border-l w-80 rounded-sm" style={{background: '#04151F'}} >
       <div>
         <Typography variant="h4" className=" ml-32">
           {element.element}

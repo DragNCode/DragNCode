@@ -257,7 +257,7 @@ const WhiteBoard: React.FC = () => {
     <Stage
       height={stageSize.height}
       width={stageSize.width}
-      className="inline-block bg-teal-700 rounded-md"
+      className="inline-block bg-white w-9/12 h-3/4 mt-24 rounded-md"
     >
       <Layer>
         {elem.map((item, index) => {
