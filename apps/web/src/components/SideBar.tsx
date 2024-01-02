@@ -59,7 +59,7 @@ const displayObject = {
   card: {
     Card: (
       <Card
-        width={300}
+        width={270}
         height={250}
         color={"#13274F"}
         cornerRadius={2}
@@ -67,9 +67,9 @@ const displayObject = {
         subTextColor={"#B2BEB5"}
         contentColor={"white"}
         buttonColor={"B2BEB5"}
-        headingFont={25}
-        subTextFont={15}
-        contentFont={20}
+        headingFont={20}
+        subTextFont={10}
+        contentFont={15}
         buttonFont={15}
         headingText={"Sample Card"}
         subText={"Subtext goes here"}
@@ -187,10 +187,7 @@ const RenderButtons = () => {
   const [elements, setElemets] = useRecoilState(elementsToShow);
 
   return (
-    <div
-      className="w-72 mr-2 ml-2 border-t border-r"
-      style={{ background: "#04151F" }}
-    >
+    <div className="w-72 border-t border-r" style={{ background: "#04151F" }}>
       <div className="flex flex-col">
         <Stage height={300} width={350}>
           <Layer>
@@ -235,7 +232,7 @@ const RenderCards = () => {
   const [elements, setElemets] = useRecoilState(elementsToShow);
 
   return (
-    <div className="w-72 mr-2 ml-2 border">
+    <div className="w-72 border-t border-r" style={{ background: "#04151F" }}>
       <div className="flex flex-col">
         <Stage height={300} width={350}>
           <Layer>
@@ -243,8 +240,8 @@ const RenderCards = () => {
               x={100}
               y={50}
               onClick={() => {
-                const count = countItemInArray(elements, "CustomButton");
-                setElemets((prev) => [...prev, `CustomButton${count + 1}`]);
+                const count = countItemInArray(elements, "Card");
+                setElemets((prev) => [...prev, `Card${count + 1}`]);
               }}
             >
               {displayObject["card"].Card}
