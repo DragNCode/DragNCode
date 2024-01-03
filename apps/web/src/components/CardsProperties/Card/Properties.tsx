@@ -162,8 +162,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 // };
 
 export const ChangeCardProperties: React.FC = () => {
-  const [value, setValue] = useState<number>(300);
-
   const PostionSizeProperties = [
     {
       title: "width",
@@ -185,6 +183,69 @@ export const ChangeCardProperties: React.FC = () => {
       type: "number",
       category: "Number",
       name: "Corner Radius",
+    },
+  ];
+
+  const TextProperties = [
+    {
+      title: "headingText",
+      value: "Sample Card",
+      type: "string",
+      category: "Text",
+      name: "Heading",
+    },
+    {
+      title: "subText",
+      value: "Subtext goes here",
+      type: "string",
+      category: "Text",
+      name: "SubText",
+    },
+    {
+      title: "content",
+      value:
+        "This assumes that you are using these values as props in a React component.",
+      type: "string",
+      category: "Text",
+      name: "Content",
+    },
+    {
+      title: "buttonText",
+      value: "Click!",
+      type: "string",
+      category: "Text",
+      name: "Button",
+    },
+  ];
+
+  const FontProperties = [
+    {
+      title: "headingFont",
+      value: 25,
+      type: "number",
+      category: "Number",
+      name: "Heading",
+    },
+    {
+      title: "subTextFont",
+      value: 15,
+      type: "number",
+      category: "Number",
+      name: "SubText",
+    },
+    {
+      title: "contentFont",
+      value: 20,
+      type: "number",
+      category: "Number",
+      name: "Content",
+    },
+    {
+      title: "buttonFont",
+      value: 15,
+      type: "number",
+      category: "Number",
+      name: "Button",
     },
   ];
 
@@ -235,7 +296,60 @@ export const ChangeCardProperties: React.FC = () => {
           <div className="flex align-middle items-center">
             <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
             <OutlinedInput
-              label={"Width"}
+              onChange={(e) => {
+                const value = e.target.value;
+                handlePropertyChange(
+                  property.title,
+                  property.type === "number"
+                    ? value === ""
+                      ? 0
+                      : parseFloat(value)
+                    : value
+                );
+              }}
+              value={
+                Card.filter((card) => card.index === number).map(
+                  (card) => (card as any)[property.title]
+                )[0]
+              }
+            />
+          </div>
+        ))}
+      </div>
+      <hr className=" mt-4 w-52 m-auto" />
+      <div>
+        <p className="mt-4 ml-2 text-xl">Text</p>
+        {TextProperties.map((property) => (
+          <div>
+            <p className="ml-24 mt-2 inline-block w-24">{property.name}</p>
+            <OutlinedTextarea
+              onChange={(e) => {
+                const value = e.target.value;
+                handlePropertyChange(
+                  property.title,
+                  property.type === "number"
+                    ? value === ""
+                      ? 0
+                      : parseFloat(value)
+                    : value
+                );
+              }}
+              value={
+                Card.filter((card) => card.index === number).map(
+                  (card) => (card as any)[property.title]
+                )[0]
+              }
+            />
+          </div>
+        ))}
+      </div>
+      <hr className=" mt-4 w-52 m-auto" />
+      <div>
+        <p className="mt-4 ml-2 text-xl">Font</p>
+        {FontProperties.map((property) => (
+          <div className="flex align-middle items-center">
+            <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
+            <OutlinedInput
               onChange={(e) => {
                 const value = e.target.value;
                 handlePropertyChange(
@@ -262,16 +376,11 @@ export const ChangeCardProperties: React.FC = () => {
 };
 
 interface OutlinedInputProps {
-  label: string;
   value: number;
   onChange: (e: any) => void;
 }
 
-const OutlinedInput: React.FC<OutlinedInputProps> = ({
-  label,
-  value,
-  onChange,
-}) => {
+const OutlinedInput: React.FC<OutlinedInputProps> = ({ value, onChange }) => {
   return (
     <div>
       <input
@@ -286,4 +395,18 @@ const OutlinedInput: React.FC<OutlinedInputProps> = ({
   );
 };
 
-export default OutlinedInput;
+const OutlinedTextarea: React.FC<OutlinedInputProps> = ({
+  value,
+  onChange,
+}) => {
+  return (
+    <textarea
+      id="outlined-textarea"
+      value={value}
+      onChange={onChange}
+      className="w-48 ml-8 py-2 pl-3 pr-10 mt-2 border rounded-md text-white focus:outline-none focus:border-blue-500 transition-all resize-none"
+      rows={2}
+      style={{ background: "rgba(28, 37, 65, 0.5)" }}
+    ></textarea>
+  );
+};
