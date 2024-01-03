@@ -130,7 +130,7 @@ const SideBar = () => {
 
   const [value, setValue] = useRecoilState(selectedCategory);
 
-  const handleHovered = (e) => {
+  const handleHovered = (e: any) => {
     const hoveredEl = e.target.name;
 
     setHoverState((prev) => hoveredEl);
@@ -174,7 +174,7 @@ const SideBar = () => {
 
 export default SideBar;
 
-const RenderBox = (props) => {
+const RenderBox = (props: any) => {
   if (props.hoveredState === "Button") {
     return <RenderButtons />;
   }
@@ -273,6 +273,7 @@ const RenderCards = () => {
     </div>
   );
 };
+
 // const Selector: React.FC = () => {
 //   const [value, setValue] = useRecoilState(selectedCategory);
 

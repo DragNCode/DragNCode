@@ -17,7 +17,7 @@ const Properties: React.FC = () => {
   return (
     <div className="inline-block border-t border-l w-80 rounded-sm" style={{background: '#04151F'}} >
       <div>
-        <Typography variant="h4" className=" ml-32">
+        <Typography variant="h4" className=" ml-24">
           {element.element}
         </Typography>
       </div>
