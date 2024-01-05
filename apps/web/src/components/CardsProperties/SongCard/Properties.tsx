@@ -5,6 +5,7 @@ import { Typography, TextField } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { OutlinedInput, OutlinedTextarea } from "../Card/Properties";
+import { SongCardJson1 } from "@/atoms/json1/SongCard";
 
 export const ChangeSongCardProperties: React.FC = () => {
   const properties = [
@@ -52,6 +53,7 @@ export const ChangeSongCardProperties: React.FC = () => {
   const { number } = useRecoilValue(currentSelectedElement);
   const [cardProperties, setCardProperties] =
     useRecoilState(SongCardProperties);
+  const [json, setJson] = useRecoilState(SongCardJson1);
 
   const handlePropertyChange = (title: string, value: number | string) => {
     setCardProperties((prev) => {
@@ -84,6 +86,44 @@ export const ChangeSongCardProperties: React.FC = () => {
         return [...prev, newCard];
       }
     });
+
+    const jsonObject = json.find((item) => item.index === number);
+
+    if (!jsonObject) {
+      const newCard = {
+        index: number,
+        width: 300,
+        height: 400,
+        color: "#13274F",
+        cornerRadius: 2,
+        headingColor: "#F0F8FF",
+        subTextColor: "#B2BEB5",
+        contentColor: "white",
+        headingFont: 25,
+        subTextFont: 15,
+        contentFont: 20,
+        headingText: "Sample Card",
+        subText: "Subtext goes here",
+        content:
+          "This assumes that you are using these values as props in a React component. If you are",
+        iconColor: "#F0F8FF",
+        xPosition: 0,
+        yPosition: 0
+      };
+      (newCard as any)[title] = value;
+      setJson(prev => [...prev, newCard]);
+    } else {
+      setJson(prev => {
+        return prev.map(p => {
+          if (p.index === number) {
+            return {...p, [title]: value};
+          } else {
+            return p;
+          }
+        })
+      })
+    }
+
   };
 
   return (
@@ -92,7 +132,7 @@ export const ChangeSongCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Postion & Size</p>
         {PositionSizeProperties.map((property) => (
-          <div className="flex align-middle items-center" key={property.name} >
+          <div className="flex align-middle items-center" key={property.name}>
             <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
             <OutlinedInput
               onChange={(e) => {
@@ -107,9 +147,10 @@ export const ChangeSongCardProperties: React.FC = () => {
                 );
               }}
               value={
-                cardProperties.filter((card) => card.index === number).map(
-                  (card) => (card as any)[property.title]
-                )[0] ?? property.value
+                cardProperties
+                  .filter((card) => card.index === number)
+                  .map((card) => (card as any)[property.title])[0] ??
+                property.value
               }
             />
           </div>
@@ -119,7 +160,7 @@ export const ChangeSongCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Text</p>
         {TextProperties.map((property) => (
-          <div key={property.name} >
+          <div key={property.name}>
             <p className="ml-24 mt-2 inline-block w-24">{property.name}</p>
             <OutlinedTextarea
               onChange={(e) => {
@@ -134,9 +175,10 @@ export const ChangeSongCardProperties: React.FC = () => {
                 );
               }}
               value={
-                cardProperties.filter((card) => card.index === number).map(
-                  (card) => (card as any)[property.title]
-                )[0] ?? property.value
+                cardProperties
+                  .filter((card) => card.index === number)
+                  .map((card) => (card as any)[property.title])[0] ??
+                property.value
               }
             />
           </div>
@@ -146,7 +188,7 @@ export const ChangeSongCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Font</p>
         {FontProperties.map((property) => (
-          <div className="flex align-middle items-center" key={property.name} >
+          <div className="flex align-middle items-center" key={property.name}>
             <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
             <OutlinedInput
               onChange={(e) => {
@@ -161,9 +203,10 @@ export const ChangeSongCardProperties: React.FC = () => {
                 );
               }}
               value={
-                cardProperties.filter((card) => card.index === number).map(
-                  (card) => (card as any)[property.title]
-                )[0] ?? property.value
+                cardProperties
+                  .filter((card) => card.index === number)
+                  .map((card) => (card as any)[property.title])[0] ??
+                property.value
               }
             />
           </div>
