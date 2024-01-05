@@ -57,6 +57,7 @@ const WhiteBoard: React.FC = () => {
   const cardAttributes = useRecoilValue(CardProperties);
 
   const handleButtonClick = (number: number, word: string) => {
+    console.log('object');
     setCurrentElem({
       number: number,
       element: word,
