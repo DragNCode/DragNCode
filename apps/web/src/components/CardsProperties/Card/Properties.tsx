@@ -1,7 +1,6 @@
 import { SampleCardProperties } from "@/atoms/elements/SampleCardProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
 import { CardJson1 } from "@/atoms/json1/Card";
-import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const ChangeCardProperties: React.FC = () => {

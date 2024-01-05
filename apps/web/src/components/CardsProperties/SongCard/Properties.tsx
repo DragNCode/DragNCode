@@ -1,7 +1,5 @@
-import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
 import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
-import { Typography, TextField } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { OutlinedInput, OutlinedTextarea } from "../Card/Properties";
