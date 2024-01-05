@@ -1,9 +1,10 @@
 import { SampleCardProperties } from "@/atoms/elements/SampleCardProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
+import { CardJson1 } from "@/atoms/json1/Card";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 export const ChangeCardProperties: React.FC = () => {
-  
   const PostionSizeProperties = [
     {
       title: "width",
@@ -91,8 +92,13 @@ export const ChangeCardProperties: React.FC = () => {
     },
   ];
 
+  const [json, setJson] = useRecoilState(CardJson1);
   const [Card, setCard] = useRecoilState(SampleCardProperties);
   const { number } = useRecoilValue(currentSelectedElement);
+
+  useEffect(() => {
+    console.log('s',json);
+  }, [json]);
 
   const handlePropertyChange = (title: string, value: number | string) => {
     setCard((prev) => {
@@ -127,6 +133,51 @@ export const ChangeCardProperties: React.FC = () => {
         return [...prev, newCard];
       }
     });
+
+    const jsonObject = json.find((item) => item.index === number);
+    console.log('j', jsonObject);
+
+    if (!jsonObject) {
+      const newCard = {
+        index: number,
+        width: 300,
+        height: 250,
+        color: "#13274F",
+        cornerRadius: 2,
+        headingColor: "#F0F8FF",
+        subTextColor: "#B2BEB5",
+        contentColor: "white",
+        buttonColor: "B2BEB5",
+        headingFont: 25,
+        subTextFont: 15,
+        contentFont: 20,
+        buttonFont: 15,
+        headingText: "Sample Card",
+        subText: "Subtext goes here",
+        content:
+          "This assumes that you are using these values as props in a React component. If you are",
+        buttonText: "Click!",
+        xPosition: 0,
+        yPosition: 0
+      };
+      (newCard as any)[title] = value;
+      setJson(prev => [...prev, newCard]);
+    } else {
+      const newCard = {
+        ...jsonObject,
+        [title]: value,
+      }
+      setJson(prev => {
+        return prev.map(p => {
+          if (p.index === number) {
+            return {...p, [title]: value};
+          } else {
+            return p;
+          }
+        })
+      })
+    }
+
   };
 
   return (
@@ -135,7 +186,7 @@ export const ChangeCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Postion & Size</p>
         {PostionSizeProperties.map((property) => (
-          <div className="flex align-middle items-center" key={property.name} >
+          <div className="flex align-middle items-center" key={property.name}>
             <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
             <OutlinedInput
               onChange={(e) => {
@@ -162,7 +213,7 @@ export const ChangeCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Text</p>
         {TextProperties.map((property) => (
-          <div key={property.name} >
+          <div key={property.name}>
             <p className="ml-24 mt-2 inline-block w-24">{property.name}</p>
             <OutlinedTextarea
               onChange={(e) => {
@@ -189,7 +240,7 @@ export const ChangeCardProperties: React.FC = () => {
       <div>
         <p className="mt-4 ml-2 text-xl">Font</p>
         {FontProperties.map((property) => (
-          <div className="flex align-middle items-center" key={property.name} >
+          <div className="flex align-middle items-center" key={property.name}>
             <p className="ml-6 m-6 inline-block w-24">{property.name}</p>
             <OutlinedInput
               onChange={(e) => {
@@ -222,7 +273,10 @@ interface OutlinedInputProps {
   onChange: (e: any) => void;
 }
 
-export const OutlinedInput: React.FC<OutlinedInputProps> = ({ value, onChange }) => {
+export const OutlinedInput: React.FC<OutlinedInputProps> = ({
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <input

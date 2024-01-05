@@ -1,4 +1,3 @@
-import Top from "@/components/Navbar";
 import WhiteBoard from "@/components/WhiteBoard";
 import Properties from "@/components/Properties";
 import SideBar from "@/components/SideBar";
@@ -7,7 +6,7 @@ const Draw: React.FC = () => {
   return (
     <>
       <div className="border-b h-16" style={{ background: "#04151F" }}>
-        <Top />
+        {/* <Top /> */}
       </div>
       <div className="flex w-full" style={{ height: "93vh" }}>
         <SideBar />
