@@ -20,7 +20,7 @@ import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnPro
 import { CardJson1 } from "@/atoms/json1/Card";
 import { CardWithImageJson1 } from "@/atoms/json1/CardWithImage";
 import { SongCardJson1 } from "@/atoms/json1/SongCard";
-
+ 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
 
