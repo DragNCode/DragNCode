@@ -47,8 +47,8 @@ const WhiteBoard: React.FC = () => {
     };
   }, []);
 
-  const [elem, setElem] = useRecoilState(elementsToShow);
-  const [currentElem, setCurrentElem] = useRecoilState(currentSelectedElement);
+  const [elem, _setElem] = useRecoilState(elementsToShow);
+  const [_currentElem, setCurrentElem] = useRecoilState(currentSelectedElement);
   const [buttonJson, setButtonJson] = useRecoilState(button);
   const [cardJson, setCardJson] = useRecoilState(card);
   const [inputJson, setInputJson] = useRecoilState(input);
@@ -57,18 +57,19 @@ const WhiteBoard: React.FC = () => {
   const cardAttributes = useRecoilValue(CardProperties);
 
   const handleButtonClick = (number: number, word: string) => {
-    console.log('object');
-    setCurrentElem({
+    const currentElement = {
       number: number,
       element: word,
-    });
+    };
+    setCurrentElem((prev) => currentElement);
   };
 
   const handleInputClick = (number: number, word: string) => {
-    setCurrentElem({
+    const currentElement = {
       number: number,
       element: word,
-    });
+    };
+    setCurrentElem((prev) => currentElement);
   };
 
   const handleButtonDrag = (
@@ -123,9 +124,9 @@ const WhiteBoard: React.FC = () => {
           return item;
         }
       });
-      setButtonJson(updatedButtonJson);
+      setButtonJson((_prev) => updatedButtonJson);
     } else {
-      setButtonJson([...buttonJson, buttonInfo]);
+      setButtonJson((prev) => [...prev, buttonInfo]);
     }
   };
 
@@ -181,9 +182,9 @@ const WhiteBoard: React.FC = () => {
           return item;
         }
       });
-      setCardJson(updatedCardJson);
+      setCardJson((_prev) => updatedCardJson);
     } else {
-      setCardJson([...cardJson, cardInfo]);
+      setCardJson((prev) => [...prev, cardInfo]);
     }
   };
 
@@ -239,9 +240,9 @@ const WhiteBoard: React.FC = () => {
           return item;
         }
       });
-      setInputJson(updatedInputJson);
+      setInputJson((_prev) => updatedInputJson);
     } else {
-      setInputJson([...inputJson, inputInfo]);
+      setInputJson((prev) => [...prev, inputInfo]);
     }
   };
 
@@ -249,7 +250,7 @@ const WhiteBoard: React.FC = () => {
   const CardImageStyle = useRecoilValue(CardWithImageProperties);
   const CustomBtnStyle = useRecoilValue(customButtonProperties);
   const outlineBtnStyle = useRecoilValue(outlineBtnProperties);
-  const CustomInputStyle = useRecoilValue(inputProperties)
+  const CustomInputStyle = useRecoilValue(inputProperties);
   const SongCardStyle = useRecoilValue(SongCardProperties);
   const CheckBoxStyle = useRecoilValue(CheckBoxProerty);
   const TextBtnStyle = useRecoilValue(TextBtnProperties);
@@ -265,6 +266,7 @@ const WhiteBoard: React.FC = () => {
           const { word, number } = getString(item);
 
           // here we have access to number so we can check something like... [[1, hi], [2,bi]]
+          console.log(item, word, number);
 
           if (word === elementsObject.Button) {
             //@ts-ignore

@@ -27,11 +27,11 @@ export const CustomInput:React.FC<ICustomInput> = ({
   const [isFocused, setFocused] = useState(false);
 
   const handleFocus = () => {
-    setFocused(true);
+    setFocused(_prev => true);
   };
 
   const handleBlur = () => {
-    setFocused(false);
+    setFocused(_prev => false);
   };
 
 //   const handleTextChange = (e) => {

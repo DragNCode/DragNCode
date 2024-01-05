@@ -32,19 +32,19 @@ export const CustomButton: React.FC<IButtonProps> = ({
   const [isClicked, setClicked] = useState(false);
 
   const handleMouseEnter = () => {
-    setHovered(true);
+    setHovered(prev => true);
   };
 
   const handleMouseLeave = () => {
-    setHovered(false);
+    setHovered(prev => false);
   };
 
   const handleMouseDown = () => {
-    setClicked(true);
+    setClicked(prev => true);
   };
 
   const handleMouseUp = () => {
-    setClicked(false);
+    setClicked(prev => false);
     onClick && onClick(label);
   };
 
@@ -89,19 +89,19 @@ export const OutlineButton: React.FC<IButtonProps> = ({
   const [isClicked, setClicked] = useState(false);
 
   const handleMouseEnter = () => {
-    setHovered(true);
+    setHovered(_prev => true);
   };
 
   const handleMouseLeave = () => {
-    setHovered(false);
+    setHovered(_prev => false);
   };
 
   const handleMouseDown = () => {
-    setClicked(true);
+    setClicked(_prev => true);
   };
 
   const handleMouseUp = () => {
-    setClicked(false);
+    setClicked(_prev => false);
     onClick(label);
   };
 
@@ -145,19 +145,19 @@ export const TextButton: React.FC<IButtonProps> = ({
   const [isClicked, setClicked] = useState(false);
 
   const handleMouseEnter = () => {
-    setHovered(true);
+    setHovered(_prev => true);
   };
 
   const handleMouseLeave = () => {
-    setHovered(false);
+    setHovered(_prev => false);
   };
 
   const handleMouseDown = () => {
-    setClicked(true);
+    setClicked(_prev => true);
   };
 
   const handleMouseUp = () => {
-    setClicked(false);
+    setClicked(_prev => false);
     onClick(label);
   };
 

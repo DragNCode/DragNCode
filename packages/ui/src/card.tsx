@@ -145,7 +145,7 @@ export const CardWithImage: React.FC<ICardWithImageProps> = ({
     img.src = imageUrl ?? "https://via.placeholder.com/250x150";
     img.onload = () => {
       //@ts-ignore
-      setImage(img);
+      setImage(_prev => img);
     };
   }, []);
 
@@ -286,7 +286,7 @@ export const SongCard: React.FC<ICardWithImageProps> = ({
     img.src = "https://via.placeholder.com/250x150";
     img.onload = () => {
       //@ts-ignore
-      setImage(img);
+      setImage(_prev => img);
     };
   }, []);
 

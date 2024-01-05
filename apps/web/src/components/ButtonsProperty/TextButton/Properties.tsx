@@ -1,7 +1,4 @@
-import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
-import { outlineBtnProperties } from "@/atoms/elements/Button/OutlineButton/outlineBtnProperties";
-import { Typography, TextField } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnProperties";

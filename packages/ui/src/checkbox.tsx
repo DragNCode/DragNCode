@@ -12,7 +12,7 @@ export const Checkbox: React.FC<ICheckboxProps> = ({ label, width, height, corne
   const [isChecked, setChecked] = useState(false);
 
   const handleClick = () => {
-    setChecked(!isChecked);
+    setChecked(prev => !isChecked);
   };
 
   return (
