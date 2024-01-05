@@ -1,8 +1,9 @@
 import { CardWithImageProperties } from "@/atoms/elements/CardWithImage/CardWithImageProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { OutlinedTextarea, OutlinedInput } from "../Card/Properties";
+import { CardWithImageJson1 } from "@/atoms/json1/CardWithImage";
 
 export const CardImageProperties: React.FC = () => {
   const colorProperties = [
@@ -51,6 +52,11 @@ export const CardImageProperties: React.FC = () => {
   const [cardProperties, setCardProperties] = useRecoilState(
     CardWithImageProperties
   );
+  const [json, setJson] = useRecoilState(CardWithImageJson1);
+
+  useEffect(() => {
+    console.log('j', json);
+  }, [json])
 
   const handlePropertyChange = (title: string, value: number | string) => {
     setCardProperties((prev) => {
@@ -83,6 +89,44 @@ export const CardImageProperties: React.FC = () => {
         return [...prev, newCard];
       }
     });
+
+    const jsonObject = json.find((item) => item.index === number);
+
+    if (!jsonObject) {
+      const newCard = {
+        index: number,
+        width: 300,
+        height: 400,
+        color: "#13274F",
+        cornerRadius: 2,
+        headingColor: "#F0F8FF",
+        subTextColor: "#B2BEB5",
+        contentColor: "white",
+        headingFont: 25,
+        subTextFont: 15,
+        contentFont: 20,
+        headingText: "Sample Card",
+        subText: "Subtext goes here",
+        content:
+          "This assumes that you are using these values as props in a React component. If you are",
+        iconColor: "#F0F8FF",
+        xPosition: 0,
+        yPosition: 0
+      };
+      (newCard as any)[title] = value;
+      setJson(prev => [...prev, newCard]);
+    } else {
+      setJson(prev => {
+        return prev.map(p => {
+          if (p.index === number) {
+            return {...p, [title]: value};
+          } else {
+            return p;
+          }
+        })
+      })
+    }
+
   };
 
   return (

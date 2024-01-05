@@ -96,10 +96,6 @@ export const ChangeCardProperties: React.FC = () => {
   const [Card, setCard] = useRecoilState(SampleCardProperties);
   const { number } = useRecoilValue(currentSelectedElement);
 
-  useEffect(() => {
-    console.log('s',json);
-  }, [json]);
-
   const handlePropertyChange = (title: string, value: number | string) => {
     setCard((prev) => {
       const existingCardIndex = prev.findIndex((card) => card.index === number);
@@ -135,7 +131,6 @@ export const ChangeCardProperties: React.FC = () => {
     });
 
     const jsonObject = json.find((item) => item.index === number);
-    console.log('j', jsonObject);
 
     if (!jsonObject) {
       const newCard = {
@@ -163,10 +158,6 @@ export const ChangeCardProperties: React.FC = () => {
       (newCard as any)[title] = value;
       setJson(prev => [...prev, newCard]);
     } else {
-      const newCard = {
-        ...jsonObject,
-        [title]: value,
-      }
       setJson(prev => {
         return prev.map(p => {
           if (p.index === number) {

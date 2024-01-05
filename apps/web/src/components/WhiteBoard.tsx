@@ -18,6 +18,7 @@ import { SongCardProperties } from "@/atoms/elements/SongCard/SongCardProperties
 import { CheckBoxProerty } from "@/atoms/elements/CheckBox/CheckboxProperty";
 import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnProperties";
 import { CardJson1 } from "@/atoms/json1/Card";
+import { CardWithImageJson1 } from "@/atoms/json1/CardWithImage";
 
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
@@ -59,18 +60,18 @@ const WhiteBoard: React.FC = () => {
   };
 
   const [CardJson, setCardJson] = useRecoilState(CardJson1);
+  const [CardWithImageJson, setCardWithImageJson] = useRecoilState(CardWithImageJson1);
 
   const JSONMapping = {
     [elementsObject.Card]: { value: CardJson, setValue: setCardJson },
+    [elementsObject.CardWithImage]: { value: CardWithImageJson, setValue: setCardWithImageJson }
   };
 
   const StyleMapping = {
     [elementsObject.Card]: CardStyles,
+    [elementsObject.CardWithImage]: CardImageStyle,
+    [elementsObject.SongCard]: SongCardStyle
   };
-
-  useEffect(() => {
-    console.log('here', CardJson);
-  }, CardJson);
 
   const handleDrag = (
     currentSelectedElementWord: string,
@@ -122,10 +123,12 @@ const WhiteBoard: React.FC = () => {
           xPosition: coordinates.x - 716,
           yPosition: coordinates.y - 162
         };
+        //@ts-ignore
         setValue(prev => [...prev, json1]);
       } else {
+        //@ts-ignore
         setValue(prev => {
-          return prev.map(p => {
+          return prev.map((p: any) => {
             if (p.index === currentSelectedElementNumber) {
               return {...p, xPosition: coordinates.x - 716, yPosition: coordinates.y - 162}
             } else {
@@ -144,10 +147,12 @@ const WhiteBoard: React.FC = () => {
           xPosition: coordinates.x - 716,
           yPosition: coordinates.y - 162
         }
+        //@ts-ignore
         setValue(prev => [...prev, json1]);
       } else {
+        //@ts-ignore
         setValue(prev => {
-          return prev.map(p => {
+          return prev.map((p: any) => {
             if (p.index === currentSelectedElementNumber) {
               return {...p, xPosition: coordinates.x - 716, yPosition: coordinates.y - 162}
             } else {
@@ -225,6 +230,13 @@ const WhiteBoard: React.FC = () => {
                 draggable
                 key={number + word}
                 onClick={() => handleButtonClick(number, word)}
+                onDragMove={(e) => {
+                  const coordinates = {
+                    x: e.evt.clientX,
+                    y: e.evt.clientY,
+                  };
+                  handleDrag(word, number, coordinates);
+                }}
               >
                 <CardWithImage
                   width={style?.width ?? 300}
