@@ -268,123 +268,123 @@ const WhiteBoard: React.FC = () => {
           // here we have access to number so we can check something like... [[1, hi], [2,bi]]
           console.log(item, word, number);
 
-          if (word === elementsObject.Button) {
-            //@ts-ignore
-            let buttonText,
-              buttonWidth = 140,
-              buttonHeight = 40;
-            attributes.text.forEach((item) => {
-              if (item[0] === number) {
-                buttonText = item[1];
-              }
-            });
-            attributes.width.forEach((item) => {
-              if (item[0] === number) {
-                buttonWidth = item[1];
-              }
-            });
-            attributes.height.forEach((item) => {
-              if (item[0] === number) {
-                buttonHeight = item[1];
-              }
-            });
+          // if (word === elementsObject.Button) {
+          //   //@ts-ignore
+          //   let buttonText,
+          //     buttonWidth = 140,
+          //     buttonHeight = 40;
+          //   attributes.text.forEach((item) => {
+          //     if (item[0] === number) {
+          //       buttonText = item[1];
+          //     }
+          //   });
+          //   attributes.width.forEach((item) => {
+          //     if (item[0] === number) {
+          //       buttonWidth = item[1];
+          //     }
+          //   });
+          //   attributes.height.forEach((item) => {
+          //     if (item[0] === number) {
+          //       buttonHeight = item[1];
+          //     }
+          //   });
 
-            return (
-              <Group
-                onClick={() => handleButtonClick(number, word)}
-                draggable
-                onDragMove={(e) => {
-                  handleButtonDrag(number, word, {
-                    x: e.evt.clientX,
-                    y: e.evt.clientY,
-                  });
-                }}
-                key={number + word}
-              >
-                <SimpleButton
-                  buttonHeight={buttonHeight ? buttonHeight : 40}
-                  buttonWidth={buttonWidth ? buttonWidth : 140}
-                  color="#4dd0e1"
-                  cornerRadius={4}
-                  label={buttonText ? buttonText : "Click Me!"}
-                  key={number}
-                />
-              </Group>
-            );
-          }
+          //   return (
+          //     <Group
+          //       onClick={() => handleButtonClick(number, word)}
+          //       draggable
+          //       onDragMove={(e) => {
+          //         handleButtonDrag(number, word, {
+          //           x: e.evt.clientX,
+          //           y: e.evt.clientY,
+          //         });
+          //       }}
+          //       key={number + word}
+          //     >
+          //       <SimpleButton
+          //         buttonHeight={buttonHeight ? buttonHeight : 40}
+          //         buttonWidth={buttonWidth ? buttonWidth : 140}
+          //         color="#4dd0e1"
+          //         cornerRadius={4}
+          //         label={buttonText ? buttonText : "Click Me!"}
+          //         key={number}
+          //       />
+          //     </Group>
+          //   );
+          // }
 
-          if (word === elementsObject.SimpleCard) {
-            let cardWidth, cardHeight;
-            cardAttributes.height.forEach((item) => {
-              if (item[0] === number) {
-                cardHeight = item[1];
-              }
-            });
-            cardAttributes.width.forEach((item) => {
-              if (item[0] === number) {
-                cardWidth = item[1];
-              }
-            });
+          // if (word === elementsObject.SimpleCard) {
+          //   let cardWidth, cardHeight;
+          //   cardAttributes.height.forEach((item) => {
+          //     if (item[0] === number) {
+          //       cardHeight = item[1];
+          //     }
+          //   });
+          //   cardAttributes.width.forEach((item) => {
+          //     if (item[0] === number) {
+          //       cardWidth = item[1];
+          //     }
+          //   });
 
-            return (
-              <Group
-                onClick={() => handleButtonClick(number, word)}
-                draggable
-                onDragMove={(e) => {
-                  handleCardDrag(number, word, {
-                    x: e.evt.clientX,
-                    y: e.evt.clientY,
-                  });
-                }}
-                key={number + word}
-              >
-                <SimpleCard
-                  cardWidth={cardWidth ? cardWidth : 250}
-                  cardHeight={cardHeight ? cardHeight : 200}
-                  title="This is the title"
-                  content="This is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the title"
-                  cornerRadius={4}
-                  key={index}
-                />
-              </Group>
-            );
-          }
+          //   return (
+          //     <Group
+          //       onClick={() => handleButtonClick(number, word)}
+          //       draggable
+          //       onDragMove={(e) => {
+          //         handleCardDrag(number, word, {
+          //           x: e.evt.clientX,
+          //           y: e.evt.clientY,
+          //         });
+          //       }}
+          //       key={number + word}
+          //     >
+          //       <SimpleCard
+          //         cardWidth={cardWidth ? cardWidth : 250}
+          //         cardHeight={cardHeight ? cardHeight : 200}
+          //         title="This is the title"
+          //         content="This is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the titleThis is the title"
+          //         cornerRadius={4}
+          //         key={index}
+          //       />
+          //     </Group>
+          //   );
+          // }
 
-          if (word === elementsObject.Input) {
-            let inputWidth, inputHeight;
-            inputAttributes.height.forEach((item) => {
-              if (item[0] === number) {
-                inputHeight = item[1];
-              }
-            });
-            inputAttributes.width.forEach((item) => {
-              if (item[0] === number) {
-                inputWidth = item[1];
-              }
-            });
+          // if (word === elementsObject.Input) {
+          //   let inputWidth, inputHeight;
+          //   inputAttributes.height.forEach((item) => {
+          //     if (item[0] === number) {
+          //       inputHeight = item[1];
+          //     }
+          //   });
+          //   inputAttributes.width.forEach((item) => {
+          //     if (item[0] === number) {
+          //       inputWidth = item[1];
+          //     }
+          //   });
 
-            return (
-              <Group
-                onClick={() => handleInputClick(number, word)}
-                draggable
-                onDragMove={(e) => {
-                  handleInputDrag(number, word, {
-                    x: e.evt.clientX,
-                    y: e.evt.clientY,
-                  });
-                }}
-                key={number + word}
-              >
-                <SimpleInput
-                  inputWidth={inputWidth ? inputWidth : 250}
-                  inputHeight={inputHeight ? inputHeight : 30}
-                  cornerRadius={2}
-                  label="Enter text here..."
-                  key={index}
-                />
-              </Group>
-            );
-          }
+          //   return (
+          //     <Group
+          //       onClick={() => handleInputClick(number, word)}
+          //       draggable
+          //       onDragMove={(e) => {
+          //         handleInputDrag(number, word, {
+          //           x: e.evt.clientX,
+          //           y: e.evt.clientY,
+          //         });
+          //       }}
+          //       key={number + word}
+          //     >
+          //       <SimpleInput
+          //         inputWidth={inputWidth ? inputWidth : 250}
+          //         inputHeight={inputHeight ? inputHeight : 30}
+          //         cornerRadius={2}
+          //         label="Enter text here..."
+          //         key={index}
+          //       />
+          //     </Group>
+          //   );
+          // }
 
           if (word === elementsObject.Card) {
             const style = CardStyles.find((item) => item.index === number)
@@ -397,7 +397,7 @@ const WhiteBoard: React.FC = () => {
               <Group
                 draggable
                 onClick={() => handleButtonClick(number, word)}
-                key={number}
+                key={number + word}
               >
                 <Card
                   width={style?.width ?? 300}
@@ -434,7 +434,7 @@ const WhiteBoard: React.FC = () => {
             return (
               <Group
                 draggable
-                key={number}
+                key={number + word}
                 onClick={() => handleButtonClick(number, word)}
               >
                 <CardWithImage
@@ -468,7 +468,7 @@ const WhiteBoard: React.FC = () => {
             return (
               <Group
                 draggable
-                key={number}
+                key={number + word}
                 onClick={() => handleButtonClick(number, word)}
               >
                 <SongCard
@@ -506,7 +506,7 @@ const WhiteBoard: React.FC = () => {
             return (
               <Group
                 draggable
-                key={number}
+                key={number+word}
                 onClick={() => handleButtonClick(number, word)}
               >
                 <CustomButton
@@ -534,7 +534,7 @@ const WhiteBoard: React.FC = () => {
             return (
               <Group
                 draggable
-                key={number}
+                key={number+word}
                 onClick={() => handleButtonClick(number, word)}
               >
                 <OutlineButton
@@ -561,7 +561,7 @@ const WhiteBoard: React.FC = () => {
             return (
               <Group
                 draggable
-                key={number}
+                key={number+word}
                 onClick={() => handleButtonClick(number, word)}
               >
                 <TextButton
