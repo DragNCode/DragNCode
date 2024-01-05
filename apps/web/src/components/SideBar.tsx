@@ -82,37 +82,37 @@ const displayObject = {
 
     CardWithImage: (
       <CardWithImage
-        width={300}
-        height={400}
+        width={270}
+        height={320}
         color={"#13274F"}
         cornerRadius={2}
         headingColor={"#F0F8FF"}
         subTextColor={"#B2BEB5"}
         contentColor={"white"}
-        headingFont={25}
-        subTextFont={15}
-        contentFont={20}
+        headingFont={20}
+        subTextFont={10}
+        contentFont={15}
         headingText={"Sample Card"}
         subText={"Subtext goes here"}
         content={
           "This assumes that you are using these values as props in a React component. If you are "
         }
-        iconColor={"#F0F8FF"}
+        iconColor={""}
       />
     ),
 
     SongCard: (
       <SongCard
-        width={450}
+        width={270}
         height={200}
         color={"#13274F"}
         cornerRadius={2}
         headingColor={"#F0F8FF"}
         subTextColor={"#B2BEB5"}
         contentColor={"white"}
-        headingFont={25}
-        subTextFont={15}
-        contentFont={20}
+        headingFont={20}
+        subTextFont={10}
+        contentFont={15}
         headingText={"Sample Card"}
         subText={"Subtext goes here"}
         content={
@@ -192,7 +192,7 @@ const RenderButtons = () => {
         <Stage height={300} width={350}>
           <Layer>
             <Group
-              x={80}
+              x={100}
               y={50}
               onClick={() => {
                 const count = countItemInArray(elements, "CustomButton");
@@ -234,10 +234,10 @@ const RenderCards = () => {
   return (
     <div className="w-72 border-t border-r" style={{ background: "#04151F" }}>
       <div className="flex flex-col">
-        <Stage height={300} width={350}>
+        <Stage height={900} width={350}>
           <Layer>
             <Group
-              x={100}
+              x={6}
               y={50}
               onClick={() => {
                 const count = countItemInArray(elements, "Card");
@@ -246,27 +246,28 @@ const RenderCards = () => {
             >
               {displayObject["card"].Card}
             </Group>
-
             <Group
-              x={100}
-              y={325}
+              x={6}
+              y={350}
               onClick={() => {
-                const count = countItemInArray(elements, "OutlineButton");
-                setElemets((prev) => [...prev, `OutlineButton${count + 1}`]);
+                const count = countItemInArray(elements, "CardWithImage");
+                setElemets((prev) => [...prev, `CardWithImage${count + 1}`]);
               }}
             >
               {displayObject["card"].CardWithImage}
             </Group>
             <Group
-              x={125}
-              y={200}
+              x={6}
+              y={700}
               onClick={() => {
-                const count = countItemInArray(elements, "TextButton");
-                setElemets((prev) => [...prev, `TextButton${count + 1}`]);
+                const count = countItemInArray(elements, "SongCard");
+                setElemets((prev) => [...prev, `SongCard${count + 1}`]);
               }}
             >
-              {displayObject["button"].TextButton}
+              {displayObject["card"].SongCard}
             </Group>
+
+           
           </Layer>
         </Stage>
       </div>
