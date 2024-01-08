@@ -1,5 +1,6 @@
 import { customButtonProperties } from "@/atoms/elements/Button/CustomButton/CustomButtonProperties";
 import { currentSelectedElement } from "@/atoms/elements/currentSelectedElement";
+import { CustomButtonJson1 } from "@/atoms/json1/Button/CustomButton";
 import {
   OutlinedInput,
   OutlinedTextarea,
@@ -31,6 +32,7 @@ export const CustomButtonProperties: React.FC = () => {
   ];
 
   const { number } = useRecoilValue(currentSelectedElement);
+  const [json, setJson] = useRecoilState(CustomButtonJson1);
   const [btnProperties, setBtnProperties] = useRecoilState(
     customButtonProperties
   );
@@ -62,6 +64,37 @@ export const CustomButtonProperties: React.FC = () => {
         return [...prev, newBtn];
       }
     });
+
+    const jsonObject = json.find((item) => item.index === number);
+
+    if (!jsonObject) {
+      const newBtn = {
+        index: number,
+        label: "click me",
+        width: 100,
+        height: 30,
+        cornerRadius: 2,
+        color1: "darkblue",
+        color2: "lightblue",
+        colorHovered: "blue",
+        textColor: "white",
+        fontSize: 16,
+        xPosition: 0,
+        yPosition: 0,
+      };
+      (newBtn as any)[title] = value;
+      setJson((prev) => [...prev, newBtn]);
+    } else {
+      setJson((prev) => {
+        return prev.map((p) => {
+          if (p.index === number) {
+            return { ...p, [title]: value };
+          } else {
+            return p;
+          }
+        });
+      });
+    }
   };
 
   return (
@@ -85,9 +118,10 @@ export const CustomButtonProperties: React.FC = () => {
                 );
               }}
               value={
-                btnProperties.filter((card) => card.index === number).map(
-                  (card) => (card as any)[property.title]
-                )[0] ?? property.value
+                btnProperties
+                  .filter((card) => card.index === number)
+                  .map((card) => (card as any)[property.title])[0] ??
+                property.value
               }
             />
           </div>

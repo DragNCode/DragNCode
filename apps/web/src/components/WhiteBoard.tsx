@@ -20,7 +20,8 @@ import { TextBtnProperties } from "@/atoms/elements/Button/TextButton/textBtnPro
 import { CardJson1 } from "@/atoms/json1/Card";
 import { CardWithImageJson1 } from "@/atoms/json1/CardWithImage";
 import { SongCardJson1 } from "@/atoms/json1/SongCard";
- 
+import { CustomButtonJson1 } from "@/atoms/json1/Button/CustomButton";
+
 const WhiteBoard: React.FC = () => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
 
@@ -61,32 +62,40 @@ const WhiteBoard: React.FC = () => {
   };
 
   const [CardJson, setCardJson] = useRecoilState(CardJson1);
-  const [CardWithImageJson, setCardWithImageJson] = useRecoilState(CardWithImageJson1);
+  const [CardWithImageJson, setCardWithImageJson] =
+    useRecoilState(CardWithImageJson1);
   const [SongCardJson, setSongCardJson] = useRecoilState(SongCardJson1);
+  const [CustomButtonJson, setCustomButtonJson] =
+    useRecoilState(CustomButtonJson1);
 
   const JSONMapping = {
     [elementsObject.Card]: { value: CardJson, setValue: setCardJson },
-    [elementsObject.CardWithImage]: { value: CardWithImageJson, setValue: setCardWithImageJson },
-    [elementsObject.SongCard]: { value: SongCardJson, setValue: setSongCardJson }
+    [elementsObject.CardWithImage]: {
+      value: CardWithImageJson,
+      setValue: setCardWithImageJson,
+    },
+    [elementsObject.SongCard]: {
+      value: SongCardJson,
+      setValue: setSongCardJson,
+    },
+    [elementsObject.CustomButton]: {
+      value: CustomButtonJson,
+      setValue: setCustomButtonJson,
+    },
   };
 
   const StyleMapping = {
     [elementsObject.Card]: CardStyles,
     [elementsObject.CardWithImage]: CardImageStyle,
-    [elementsObject.SongCard]: SongCardStyle
+    [elementsObject.SongCard]: SongCardStyle,
+    [elementsObject.CustomButton]: CustomBtnStyle,
   };
 
-  const handleDrag = (
+  const handleCardDrag = (
     currentSelectedElementWord: string,
     currentSelectedElementNumber: number,
     coordinates: { x: number; y: number }
   ) => {
-    console.log(
-      currentSelectedElementNumber,
-      currentSelectedElementWord,
-      coordinates
-    );
-
     const STAGECOORDINATES = [
       { x: 716, y: 162 },
       { x: 1435, y: 162 },
@@ -100,8 +109,9 @@ const WhiteBoard: React.FC = () => {
     );
 
     if (!style) {
-      
-      const json = value.find(item => item.index === currentSelectedElementNumber);
+      const json = value.find(
+        (item) => item.index === currentSelectedElementNumber
+      );
 
       if (!json) {
         const json1 = {
@@ -124,25 +134,118 @@ const WhiteBoard: React.FC = () => {
             "This assumes that you are using these values as props in a React component. If you are",
           buttonText: "Click!",
           xPosition: coordinates.x - 716,
-          yPosition: coordinates.y - 162
+          yPosition: coordinates.y - 162,
         };
         //@ts-ignore
-        setValue(prev => [...prev, json1]);
+        setValue((prev) => [...prev, json1]);
       } else {
         //@ts-ignore
-        setValue(prev => {
+        setValue((prev) => {
           return prev.map((p: any) => {
             if (p.index === currentSelectedElementNumber) {
-              return {...p, xPosition: coordinates.x - 716, yPosition: coordinates.y - 162}
+              return {
+                ...p,
+                xPosition: coordinates.x - 716,
+                yPosition: coordinates.y - 162,
+              };
             } else {
               return p;
             }
-          })
-        })
+          });
+        });
       }
-
     } else {
-      const json = value.find(item => item.index === currentSelectedElementNumber);
+      const json = value.find(
+        (item) => item.index === currentSelectedElementNumber
+      );
+
+      if (!json) {
+        const json1 = {
+          ...style,
+          xPosition: coordinates.x - 716,
+          yPosition: coordinates.y - 162,
+        };
+        //@ts-ignore
+        setValue((prev) => [...prev, json1]);
+      } else {
+        //@ts-ignore
+        setValue((prev) => {
+          return prev.map((p: any) => {
+            if (p.index === currentSelectedElementNumber) {
+              return {
+                ...p,
+                xPosition: coordinates.x - 716,
+                yPosition: coordinates.y - 162,
+              };
+            } else {
+              return p;
+            }
+          });
+        });
+      }
+    }
+  };
+
+  const handleButtonDrag = (
+    currentSelectedElementWord: string,
+    currentSelectedElementNumber: number,
+    coordinates: { x: number; y: number }
+  ) => {
+    console.log(
+      currentSelectedElementNumber,
+      currentSelectedElementWord,
+      coordinates
+    );
+
+    const { value, setValue } = JSONMapping[currentSelectedElementWord];
+    const style = StyleMapping[currentSelectedElementWord].find(
+      (item) => item.index === currentSelectedElementNumber
+    );
+
+    if (!style) {
+      const json = value.find(
+        (item) => item.index === currentSelectedElementNumber
+      );
+
+      console.log(json);
+
+      if (!json) {
+        const json1 = {
+          index: currentSelectedElementNumber,
+          label: "click me",
+          width: 100,
+          height: 30,
+          cornerRadius: 2,
+          color1: "darkblue",
+          color2: "lightblue",
+          colorHovered: "blue",
+          textColor: "white",
+          fontSize: 16,
+          xPosition: coordinates.x - 716,
+          yPosition: coordinates.y - 162,
+        };
+        //@ts-ignore
+        setValue((prev) => [...prev, json1]);
+      } else {
+        //@ts-ignore
+        setValue((prev) => {
+          return prev.map((p: any) => {
+            if (p.index === currentSelectedElementNumber) {
+              return {
+                ...p,
+                xPosition: coordinates.x - 716,
+                yPosition: coordinates.y - 162,
+              };
+            } else {
+              return p;
+            }
+          });
+        });
+      }
+    } else {
+      const json = value.find(
+        (item) => item.index === currentSelectedElementNumber
+      );
 
       if (!json) {
         const json1 = {
@@ -154,17 +257,21 @@ const WhiteBoard: React.FC = () => {
         setValue(prev => [...prev, json1]);
       } else {
         //@ts-ignore
-        setValue(prev => {
+        setValue((prev) => {
           return prev.map((p: any) => {
             if (p.index === currentSelectedElementNumber) {
-              return {...p, xPosition: coordinates.x - 716, yPosition: coordinates.y - 162}
+              return {
+                ...p,
+                xPosition: coordinates.x - 716,
+                yPosition: coordinates.y - 162,
+              };
             } else {
               return p;
             }
-          })
-        })
+          });
+        });
       }
-
+      
     }
   };
 
@@ -193,7 +300,7 @@ const WhiteBoard: React.FC = () => {
                     x: e.evt.clientX,
                     y: e.evt.clientY,
                   };
-                  handleDrag(word, number, coordinates);
+                  handleCardDrag(word, number, coordinates);
                 }}
               >
                 <Card
@@ -238,7 +345,7 @@ const WhiteBoard: React.FC = () => {
                     x: e.evt.clientX,
                     y: e.evt.clientY,
                   };
-                  handleDrag(word, number, coordinates);
+                  handleCardDrag(word, number, coordinates);
                 }}
               >
                 <CardWithImage
@@ -279,7 +386,7 @@ const WhiteBoard: React.FC = () => {
                     x: e.evt.clientX,
                     y: e.evt.clientY,
                   };
-                  handleDrag(word, number, coordinates);
+                  handleCardDrag(word, number, coordinates);
                 }}
               >
                 <SongCard
@@ -312,13 +419,18 @@ const WhiteBoard: React.FC = () => {
               ? CustomBtnStyle.find((item) => item.index === number)
               : CustomBtnStyle[0];
 
-            console.log(btnStyle, "btnstyle");
-
             return (
               <Group
                 draggable
                 key={number + word}
                 onClick={() => handleButtonClick(number, word)}
+                onDragMove={(e) => {
+                  const coordinates = {
+                    x: e.evt.clientX,
+                    y: e.evt.clientY,
+                  };
+                  handleButtonDrag(word, number, coordinates);
+                }}
               >
                 <CustomButton
                   label={btnStyle?.label ?? "click me"}
@@ -340,8 +452,8 @@ const WhiteBoard: React.FC = () => {
             const btnStyle = outlineBtnStyle.find(
               (item) => item.index === number
             )
-              ? CustomBtnStyle.find((item) => item.index === number)
-              : CustomBtnStyle[0];
+              ? outlineBtnStyle.find((item) => item.index === number)
+              : outlineBtnStyle[0];
             return (
               <Group
                 draggable
